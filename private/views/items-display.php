@@ -1,0 +1,1 @@
+<?= 'the category is: '.$_GET['category'].' and the gender is '.$_GET['gender'] ?>

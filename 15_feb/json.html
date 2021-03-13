@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON</title>
+</head>
+
+<body>
+
+    <script>
+        // json objects, not js objects
+        // double quote the keys
+
+        // value can be a number, null, text, boolean
+            // let user = {"id":1, "name":"a"}
+
+        // add a key-value to the user
+            // user.last_name = "aa"
+            // user.mail = "@a"
+
+        // delete a key value from the user
+            // delete user.last_name
+
+        // how to update the name to something else
+            // user.name = "x"
+
+        // pull data about the user or specific data
+            // console.log(user) // (user.name)
+
+
+        let people = []
+        let person_one = {"id":1, "name":"a"}
+        let person_two = {"id":2, "name":"x"}
+        let person_three = {"id":3, "name":"c"}
+        people.push(person_one, person_two, person_three)
+
+            for(let i = 0; i < people.length; i++){
+                if(people[i].name == "x"){
+                    console.log(`User with id ${people[i].id} is called wow`)
+                }else{
+                    console.log(`User with id ${people[i].id} is called ${people[i].name}`)
+                }
+            }
+            // OTHER WAY TO DO IT
+            // console.log(`User with id ${p.id} is called ${p.name == "x" ? "wow" : p.name}`)
+
+
+        // let people = []
+        // let person_one = {"id":1, "name":"a"}
+        // let person_two = {"id":2, "name":"b"}
+        // how to add those 2 person to people
+        // people.push(person_one, person_two) // or do them individually
+        
+        // TASK update every person to have a 
+        // key called created and the value is 0
+        // and name stays intact
+            // people.forEach(person => person.created = 0)
+
+        // Math.random() // age must be between 0 and 150
+            // people.forEach(person => person.age = Math.floor(Math.random()*151))
+            // let random_age = Math.floor(Math.random()*151)
+            // console.log(random_age)
+
+        people.forEach(person => person.age = Math.floor(Math.random()*151))
+
+        // calculate the average age of people and show it in console
+        const total_people = people.length
+        // loop through each person and get the age added to th total
+        let total = 0
+        people.forEach(person => total = total + person.age)
+        // calculate average
+        let average = total / total_people
+
+        // console.log(average)
+
+        
+        // update the name b to x
+            // people[1].name = "x"
+        
+        // console.log(people)
+
+    </script>
+
+</body>
+</html>

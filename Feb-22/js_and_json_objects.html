@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS and JSON objects</title>
+</head>
+
+<body>
+
+    <script>
+        // user, items, posts, likes, etc
+        // block and delete user
+        // create, delete, update item
+        // unlike post, like post
+        // JS objects and JSON objects
+        // JSON double quotes around keys
+        // JS can be value, number, string, null array, json
+
+        // const user = {
+        //         "id": 1,
+        //         "name": "a"
+        //     } // json object
+        // const user_one = {
+        //         id: 1,
+        //         name: "a"
+        //     } // js object
+
+        // json object cannot have function in it
+        // js object can have functions
+
+        let user = {
+            "id": 2,
+            "name": "b",
+            "show": function() {
+                const user_id = this.id
+                const user_name = this.name
+                console.log(`id ${user_id} name ${user_name}`)
+            },
+            "delete": function() {
+                console.log("deleting user")
+            }
+        }
+
+        // console.log(user.id)
+        // console.log(user.name)
+        user.show()
+
+        // user.delete()
+
+        // nodejs think about the scope of functions and arrow functions
+        // packages use function arrow function
+
+        const item = {
+            "id": 1,
+            "create": function() {
+                console.log("create item")
+            },
+            "delete": function() {
+                console.log(`deleting ${this.id}`)
+            }
+        }
+        item.create()
+        item.delete()
+    </script>
+
+</body>
+
+</html>

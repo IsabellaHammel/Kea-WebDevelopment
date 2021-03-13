@@ -1,0 +1,1 @@
+<?= 'deleting item wiht id: '.$_GET['id'] ?>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="items">
+
+        <!-- <div class="item">
+            <form onsubmit="return false">
+                <span>id</span> <span>1</span>
+                <span>name</span> <span>a</span>
+                <button>delete</button>
+            </form>
+        </div> -->
+
+    </div>
+
+    <div id="get_more_items" onclick="show_items()">Get more items</div>
+
+    <script>
+        // create an array with 2 items... each item os a json obejct
+        // loop thorugh the array and show those items
+        const items = [{
+            "id": 5,
+            "name": "five"
+        }, {
+            "id": 6,
+            "name": "six"
+        }, {
+            "id": 7,
+            "name": "seven"
+        }]
+
+        function show_items() {
+            items.forEach(item => {
+                let div_item = `
+                    <div class="item">
+                        <form onsubmit="return false">
+                            <span>id</span> <span>${item.id}</span>
+                            <span>name</span> <span>${item.name}</span>
+                            <button onclick="delete_item()">delete</button>
+                        </form>
+                    </div>`
+                document.querySelector("#items").insertAdjacentHTML("beforeend", div_item)
+            })
+        }
+    </script>
+
+</body>
+
+</html>

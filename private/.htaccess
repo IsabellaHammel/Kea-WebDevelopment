@@ -1,0 +1,54 @@
+RewriteEngine On
+
+# users
+
+RewriteCond %{REQUEST_METHOD} GET
+RewriteRule ^users$ api-get-users.php [NC,L]
+
+RewriteCond %{REQUEST_METHOD} POST
+RewriteRule ^users$ api-create-user.php [NC,L]
+
+RewriteCond %{REQUEST_METHOD} POST
+RewriteRule ^users/delete$ api-delete-user.php [NC,L]
+
+RewriteCond %{REQUEST_METHOD} POST
+RewriteRule ^users/update$ api-update-user.php [NC,L]
+
+
+
+#RegEx
+
+####################
+# GET
+####################
+# Display the form to create an item
+
+RewriteCond %{REQUEST_METHOD} GET
+RewriteRule ^items/create$ views/items-create.php [NC,L]
+
+RewriteCond %{REQUEST_METHOD} GET
+RewriteRule ^items$   show_items.php [NC,L]
+
+RewriteCond %{REQUEST_METHOD} GET
+RewriteRule ^items/update/(\d+)$ views/items-update.php?id=$1 [NC,L]
+
+RewriteCond %{REQUEST_METHOD} GET
+RewriteRule ^items/delete/(\d+)$ api/items-delete.php?id=$1 [NC,L]
+
+RewriteCond %{REQUEST_METHOD} GET
+RewriteRule ^items/([a-zA-Z]+)/([a-zA-Z]+)$ views/items-display.php?category=$1&gender=$2 [NC,L]
+
+
+####################
+# POST
+####################
+
+RewriteCond %{REQUEST_METHOD} POST
+RewriteRule ^items/create$ api/items-create.php [NC,L]
+
+RewriteCond %{REQUEST_METHOD} POST
+RewriteRule ^items/update/(\d+)$ api/items-update.php?id=$1 [NC,L]
+
+
+
+ErrorDocument 404 /private/404.php

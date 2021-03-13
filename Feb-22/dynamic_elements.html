@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="items">
+
+        <div class="item">
+            <form onsubmit="return false">
+                <span>id</span> <span>1</span>
+                <span>name</span> <span>a</span>
+                <button>delete</button>
+            </form>
+        </div>
+
+    </div>
+
+    <div id="get_more_items">Get more items</div>
+
+    <script>
+        document.querySelector("#get_more_items").addEventListener("click", function() {
+            console.log("get_more_items")
+                // connect to the server
+                // get an array with json elements (items)
+                // createElement
+
+            // create an array with 2 items... each item os a json obejct
+            // loop thorugh the array and show those items
+            const items = [{
+                "id": 5,
+                "name": "five"
+            }, {
+                "id": 6,
+                "name": "six"
+            }, {
+                "id": 7,
+                "name": "seven"
+            }]
+
+
+            const item = `
+            <div class="item">
+                <form onsubmit="return false">
+                    <span>id</span> <span>123</span>
+                    <span>name</span> <span>afdfs</span>
+                    <button>delete</button>
+                </form>
+            </div>`
+            document.querySelector("#items").insertAdjacentHTML("beforeend", item)
+            addEvents() //this will regenerate the listener
+        })
+
+        function addEvents() {
+            document.querySelectorAll("button").forEach(button => {
+                button.addEventListener("click", function() {
+                    console.log("button clicked")
+                })
+            })
+        }
+        addEvents()
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,1 @@
+<?= 'FORM TO UPDATE USER WITH ID: '.$_GET['id'] ?>

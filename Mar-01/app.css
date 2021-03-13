@@ -1,0 +1,9 @@
+div#users {
+    display: grid;
+    grid-gap: 1rem;
+}
+
+div.user {
+    border: 1px solid gray;
+    padding: 1rem;
+}
