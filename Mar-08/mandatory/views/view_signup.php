@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Signup form</title>
 </head>
 <body>
     <?php
@@ -15,52 +15,20 @@
     <?php
     }
     ?>
-
-    <form action="/login" method="POST">
-        <div>
-            <div>
-                name <span class="soft">(min 2 max 20 characters)</span>
-            </div>
-            <input id="first_name" onclick="clear_error()" type="text" placeholder="name" data-input-type="str" data-min="2" data-max="20">
-        </div>
-
-        <div>
-            <div>
-                last name <span class="soft">(min 2 max 20 characters)</span>
-            </div>
-            <input id="last_name" onclick="clear_error()" type="text" placeholder="last name" data-input-type="str" data-min="2" data-max="20">
-        </div>
-
-        <div>
-            <div>
-                phone <span class="soft">(8 digits)</span>
-            </div>
-            <input id="phone" onclick="clear_error()" type="text" placeholder="phone" maxlength="8" data-input-type="int" data-min="10000000" data-max="99999999">
-        </div>
-
-        <div>
-            <div>
-                email <span class="soft">(mail)</span>
-            </div>
-            <input id="email" onclick="clear_error()" type="text" placeholder="email" maxlength="50" data-input-type="email">
-        </div>
-
-        <!--the password must be at least 8 characters and no more than 50-->
-
-        <div>
-            <div>
-                password <span class="soft">(1-50 characters)</span>
-            </div>
-            <input id="password" onclick="clear_error()" type="password" placeholder="password" maxlength="50" data-input-type="str" data-min="1" data-max="50">
-        </div>
-
-        <div>
-            <div>
-                confirm password <span class="soft">(1-50 characters)</span>
-            </div>
-            <input id="confirm_password" onclick="clear_error()" type="password" placeholder="password" maxlength="50" data-input-type="str" data-min="1" data-max="50">
-        </div>
-        <button>login</button>
+    <form action=<?=  '/' . $GLOBALS['baseRoute'] .'/signup' ?> method="POST">
+            <input name="user_first_name" type="text" placeholder="name" >
+            <br><br>
+            <input name="user_last_name" type="text" placeholder="last name">
+            <br><br>
+            <input name="user_phone"  type="text" placeholder="phone">
+            <br><br>
+            <input name="user_email" type="text"  placeholder="email">
+            <br><br>
+            <input name="user_password" type="password"  placeholder="password">
+            <br>
+            <input name="user_confirm_password" type="password" placeholder="confirm password">
+            <br><br>
+        <button>signup</button>
     </form>
 </body>
 </html>
