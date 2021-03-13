@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XMLHTTPRequest - AJAX - FETCH</title>
+</head>
+
+<body>
+
+    <h1>
+        XMLHTTPRequest - AJAX - FETCH
+    </h1>
+    <div id="name"></div>
+
+    <script>
+        // time means connect to server
+        // time means connect to api
+        // time means connect to a databse
+        // time means connect to a printer to print
+
+        async function get_name_from_server() { // normally call it get_name
+            let server = await fetch("get_name.php")
+            let data = await server.text() //.json()
+            document.querySelector("#name").innerText = data
+        }
+        setInterval(get_name_from_server, 500)
+            //get_name_from_server()
+
+        // The server should send data only once per request
+    </script>
+</body>
+
+</html>

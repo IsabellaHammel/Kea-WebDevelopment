@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arrays</title>
+</head>
+
+<body>
+
+    <script>
+
+        // one = is to assign
+        // two equals is to compare
+            // let name ="aaa"
+            // if(name == "aaa"){
+            //     console.log("yes")
+            // }else{
+            //     console.log("no")
+            // }
+
+
+
+        /* TASK
+        Create an array with letters a b c d e 
+        show all letters, but if any of those letters is an x 
+        then you show WOW instead of the letter */
+        
+            const letters = ["x", "b", "c", "d", "e"] //changed a to x to say wow
+            for(let i = 0; i < letters.length; i++){
+                if(letters[i] == "x"){
+                    console.log("wow")
+                }else{
+                    console.log(letters[i])
+                }
+            }
+
+        // other way to solve it with FOR OF loop
+            const letters = ["x", "b", "c", "d", "e"] //changed a to x to say wow
+            for(const letter of letters){
+                if(letter == "x"){
+                    console.log("wow")
+                }else{
+                    console.log(letter)
+                }
+            }
+
+        // third way to do other stuff
+            const letters = ["x", "b", "c", "d", "e"] //changed a to x to say wow
+            for(let i = 0; i < letters.length; i+=2)[
+                console.log(letters[i])
+            ]
+
+        /*end of task*/
+
+        
+
+
+        // == vs ===
+            // let price = "10"
+            // if(price == 10){
+            //     console.log("cheap")
+            // }
+        // then ===
+            // let price = "10" // check also the data type
+            // if(price === 10){
+            //     console.log("cheap")
+            // }
+
+
+
+
+        // let letters = ["a", "b", "c"] // this is an array - plural
+        // console.log(letters)
+            // console.log(letters[0]) // letter a
+            // console.log(letters[1]) // letter b
+            // console.log(letters[2]) // letter c
+
+        // add new element to the array - push
+        // push adds to the end of the array
+            // letters.push("d")
+            // console.log(letters)
+
+        // pop removes the last element from the array
+            // letters.pop()
+            // console.log(letters)
+
+        // unshift adds an element to the beginning of the array
+            // letters.unshift("x")
+            // console.log(letters)
+        // shift removes first element from the array
+            // console.log("shift")
+            // letters.shift()
+            // console.log(letters)
+
+        // for loop, for-of loop, for-in loop, forEach loop
+            // for(let i = 0; i < letters.length; i++){
+            //     console.log(letters[i])
+            // }
+
+        // how will you show only b and c?
+            // for(let i = 1; i < letters.length; i++){
+            //     console.log(letters[i])
+            // }
+
+    </script>
+
+</body>
+</html>

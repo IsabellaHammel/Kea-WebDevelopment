@@ -1,0 +1,4 @@
+div.item{
+  display: grid;
+  grid-template-columns: 10fr 100fr 50fr;
+}

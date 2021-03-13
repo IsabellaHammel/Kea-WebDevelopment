@@ -1,0 +1,24 @@
+#light div {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    border: 1px solid black;
+    padding: 2%;
+    margin: 2%;
+}
+
+div {
+    display: block;
+}
+
+.red {
+    background-color: red;
+}
+
+.green {
+    background-color: green;
+}
+
+.yellow {
+    background-color: yellow;
+}
