@@ -1,23 +1,32 @@
 from os import system
 import os.path as paths
 import sys
-DEFAULT_PHP_PATHS = ["E:/xampp/php", 'C:/xampp/php', 'C:/php']
+DEFAULT_PHP_PATHS = ['E:/xampp/php', 'C:/xampp/php', 'C:/php']
+DEFAULT_XAMPP_PATHS = ['E:/xampp', 'C:/xampp']
+PHP_PATH = ''
+XAMPP_PATH = ''
 
 EXECUTION_PATH = paths.dirname(paths.realpath(__file__))
 TEMPLATE_FILE = f'{EXECUTION_PATH}\php.ini.template'
 XDEBUG_FILE = f'{EXECUTION_PATH}\php_xdebug.dll'
 
 def get_php_path():
-    for default_path in DEFAULT_PHP_PATHS:
+    return try_get_path('PHP', DEFAULT_PHP_PATHS)
+    
+def get_xampp_path():
+    return try_get_path('XAMPP', DEFAULT_XAMPP_PATHS)
+
+def try_get_path(name, default_paths):
+    for default_path in default_paths:
         if paths.isdir(default_path):
-            if prompt(f"Found default path {default_path} - Do you want to use this?"):
+            if prompt(f"Found default path for {name}: {default_path} - Do you want to use this?"):
                 return default_path
 
-    php_dir = ''
+    path = ''
     while True:
-        php_dir = input("Enter path to your php folder: ")
-        if paths.isdir(php_dir):
-            return php_dir
+        path = input(f"Enter path to your {name} folder: ")
+        if paths.isdir(path):
+            return path
         print("Given path was not found, please try again.\n")
 
 def ensure_dependencies():
@@ -29,22 +38,25 @@ def ensure_dependencies():
         error = f'{error} Missing xdebug dll file - php_xdebug.dll") | '
     return error
 
-def generate_php_ini(php_dir):
+def generate_php_ini():
     generated_content = []
-
-    with open(TEMPLATE_FILE,'r') as template_file:
+    with open(TEMPLATE_FILE, 'r') as template_file:
         for line in template_file.readlines():
             if "{{XDEBUG_LOCATION}}" in line:
-                line = line.replace("{{XDEBUG_LOCATION}}", f'{php_dir}/ext/php_xdebug.dll')
-                print(f'Added: {line}')    
+                line = line.replace("{{XDEBUG_LOCATION}}", f'{PHP_PATH}/ext/php_xdebug.dll')
+                print(f'Added: {line}')
+            if "{{PHP_DIR}}" in line:
+                line = line.replace("{{PHP_DIR}}", f'{PHP_PATH}')
+                print(f'Added: {line}')
+            if "{{XAMPP_DIR}}" in line:
+                line = line.replace("{{XAMPP_DIR}}", f'{XAMPP_PATH}')
+                print(f'Added: {line}')
 
             generated_content.append(line)
     
     actualFile = TEMPLATE_FILE.replace('.template', '')
     with open(actualFile, 'w') as file:
         file.writelines(generated_content)
-
-
 
 def prompt(message):
     while True:
@@ -55,13 +67,13 @@ def prompt(message):
             return False
         print('please enter y for yes or n for no')
 
-def add_xdebug_extension(php_dir):
-    destination = f'{php_dir}\ext\php_xdebug.dll'
+def add_xdebug_extension():
+    destination = f'{PHP_PATH}\ext\php_xdebug.dll'
     copy_to_folder(XDEBUG_FILE, destination)
 
-def add_php_ini(php_dir):
+def add_php_ini():
     source = TEMPLATE_FILE.replace('.template', '')
-    destination = f'{php_dir}\php.ini'
+    destination = f'{PHP_PATH}\php.ini'
     copy_to_folder(source, destination)
 
 def copy_to_folder(src, dest):
@@ -72,7 +84,8 @@ def copy_to_folder(src, dest):
 ################################
 print("-- XDebug Installer --")
 
-PHP_DIR = get_php_path()
+PHP_PATH = get_php_path()
+XAMPP_PATH = get_xampp_path()
 
 ERRORS = ensure_dependencies()
 if ERRORS is not '':
@@ -80,9 +93,9 @@ if ERRORS is not '':
 
 print("Installing XDebug...")
 
-generate_php_ini(PHP_DIR)
-add_xdebug_extension(PHP_DIR)
-add_php_ini(PHP_DIR)
+generate_php_ini()
+add_xdebug_extension()
+add_php_ini()
 
 print("\n--------- xDebug Installed -----------")
 input("Press any keys to exit...")
