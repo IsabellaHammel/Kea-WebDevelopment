@@ -1,2 +1,3 @@
 <?php
+$someVar = 'Test';
 phpinfo();
