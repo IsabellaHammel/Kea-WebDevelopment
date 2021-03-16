@@ -3,6 +3,7 @@
 require_once(__DIR__.'/router.php');
 
 // ##################################################
+// ########### LOGIN ###########
 get('/', 'serve_index');
 function serve_index(){
   $page_title = 'Welcome';
@@ -66,6 +67,37 @@ function serve_users(){
 post('/login', 'login');
 function login(){
   require_once(__DIR__.'/bridges/bridge_login.php');
+  exit();
+}
+
+
+// ##################################################
+// ########### SIGNUP ###########
+$GLOBALS["baseRoute"] = 'mar-08/mandatory';
+$baseRoute = $GLOBALS["baseRoute"];
+
+get($baseRoute . '/signup', 'render_signup');
+function render_signup(){
+  require_once(__DIR__.'/views/view_signup.php');
+  exit();
+}
+
+get($baseRoute . '/signup/error/:message', 'render_signup_error');
+function render_signup_error($message){
+  $display_error = $message;
+  require_once(__DIR__.'/views/view_signup.php');
+  exit();
+}
+
+get($baseRoute . '/login', 'render_login');
+function render_login(){
+  require_once(__DIR__.'/views/view_login.php');
+  exit();
+}
+
+post($baseRoute . '/signup', 'submit_signup');
+function submit_signup(){
+  require_once(__DIR__.'/bridges/bridge_signup.php');
   exit();
 }
 
