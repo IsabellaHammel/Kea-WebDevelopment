@@ -1,0 +1,5 @@
+{
+    "default_php_paths": ["E:/xampp/php", "C:/xampp/php", "C:/php"],
+    "default_xampp_paths": ["E:/xampp", "C:/xampp"],
+    "default_pgsql_paths": ["E:/xampp/pgsql"]
+}
