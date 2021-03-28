@@ -6,7 +6,7 @@ from utilities.pathHandler import PathsHandler
 class XDebugInstaller:
     def __init__(self, path_handler: PathsHandler):
         self.path_handler = path_handler
-        self.xdebug_file = f'{path_handler.execution_path}\php_xdebug.dll'
+        self.xdebug_file = f'{path_handler.execution_path}\dlls\php_xdebug.dll'
 
         if not paths.isfile(self.xdebug_file):
             sys.exit(f'Missing xdebug dll file - php_xdebug.dll")')

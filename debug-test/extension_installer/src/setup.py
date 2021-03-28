@@ -23,7 +23,6 @@ class MainInstaller:
         print('installing xdebug ...')
         self.xdebug_installer.install_extension()
 
-
     def _generate_php_ini(self):
         file_path = self.path_handler.php_ini_template_file
         generated_content = []
@@ -39,7 +38,6 @@ class MainInstaller:
             file.writelines(generated_content)
         
 
-
     def _set_default_placeholders(self, line):
         if '{{PHP_DIR}}' in line:
             line = utils.set_placeholder(line, '{{PHP_DIR}}', f'{self.path_handler.php_path}')
@@ -47,7 +45,6 @@ class MainInstaller:
         if '{{XAMPP_DIR}}' in line:
             line = utils.set_placeholder(line, '{{XAMPP_DIR}}', f'{self.path_handler.xampp_path}')
         return line
-
 
     def _instal_php_ini(self):
         source = self.path_handler.php_ini_template_file.replace('.template', '')

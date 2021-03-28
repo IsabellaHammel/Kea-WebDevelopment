@@ -10,9 +10,14 @@ class PathsHandler:
         self.config = config
         self.php_path: str
         self.xampp_path: str
-        self.php_ini_template_file = f'{self.execution_path}\php.ini.template'
+
+        self.template_path = f'{self.execution_path}\\templates'
+
+        self.php_ini_template_file = f'{self.template_path}\php.ini.template'
+        self.xampp_httpd_template_file = f'{self.template_path}\httpd-xampp.conf.template'
+        self.pgsql_config_inc_template_file = f'{self.template_path}\config.inc.php.template'
         
-        self._ensure_default_dependencies()
+        self._ensure_default_dependencies([self.php_ini_template_file, self.xampp_httpd_template_file, self.pgsql_config_inc_template_file])
         self._set_default_paths()
 
 
@@ -42,6 +47,11 @@ class PathsHandler:
                 if not utils.prompt(f'Path not found - Do you want to retry setting path for {name}?'):
                     break
 
-    def _ensure_default_dependencies(self):
-        if not paths.isfile(self.php_ini_template_file):
-            sys.exit(f'Missing template file - php.ini.template')
+    def _ensure_default_dependencies(self, default_path_files):
+        error = ''
+        for path in default_path_files:
+            if not paths.isfile(path):
+                error = f'{error} | Missing template file - {path}'
+
+        if error is not '':
+                sys.exit(error)
