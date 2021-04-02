@@ -2,17 +2,16 @@
 
 class BaseRepository extends PDO
 {
-    protected $settings;
-
+    protected array $settings;
     
-    public function __construct($dbschema)
+    public function __construct()
     {
-        $this->$settings = get_settings();
-
-        $user = $this->$settings['database']['username'];
+        $this->settings = $this->get_settings();
+        
+        $user = $this->settings['database']['username'];
         $password = $this->settings['database']['password'];
-        $db_options = get_db_options();
-        $connection_string = build_pdo_connection_string();
+        $db_options = $this->get_db_options();
+        $connection_string = $this->build_pdo_connection_string();
 
         parent::__construct($connection_string, $user, $password, $db_options); // new PDO(...)
     }
@@ -28,12 +27,12 @@ class BaseRepository extends PDO
         return $parsed_settings;
     }
 
-    private function build_pdo_connection_string() : str
+    private function build_pdo_connection_string() : string
     {
-        $dbtype = $this -> $settings['database']['driver'];
-        $host = ':host=' . $this -> $settings['database']['host'];
-        $port = (!empty($this->$settings['database']['port'])) ? (';port=' . $this->$settings['database']['port']) : '';
-        $dbschema = ';dbname=' . $this->$settings['database']['schema'];
+        $dbtype = self::$settings['database']['driver'];
+        $host = ':host=' . self::$settings['database']['host'];
+        $port = (!empty($settings['database']['port'])) ? (';port=' . $settings['database']['port']) : '';
+        $dbschema = ';dbname=' . self::$settings['database']['schema'];
 
         $connection_string = $dbtype . $host . $port . $dbschema;
         return $connection_string;

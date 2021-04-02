@@ -1,4 +1,6 @@
 <?php
+// require database once user repo
+// requre user once
 
 $error = null;
 global $error; // Needed to access error on line 100
@@ -101,6 +103,7 @@ if($error != null){
     showErrorMessage($error);
 }
 
+// Make helper function to build user
 // call repo and save user
 
 // success go to login
