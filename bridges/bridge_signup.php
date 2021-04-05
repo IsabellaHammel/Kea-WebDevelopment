@@ -100,7 +100,7 @@ function showErrorMessage($error_message){
 }
 
 function setURL($endpoint){
-    header('Location: ' . '/' . $endpoint);
+    header('Location: ' . $endpoint);
     exit();
 }
 
