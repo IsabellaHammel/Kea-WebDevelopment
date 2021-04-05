@@ -5,35 +5,37 @@
 // include -> nice, it tries to use it
 // include_once -> 1 time
 
-require_once(__DIR__.'/router.php');
+require_once("{$_SERVER['DOCUMENT_ROOT']}/router.php");
 
 //---------- SIGN UP ---------------
-get('/signup', 'render_signup');
-function render_signup(){
-  require_once(__DIR__.'/views/view_signup.php');
-  exit();
-}
+// get('/signup', 'render_signup');
+// function render_signup(){
+//   require_once(__DIR__.'/views/view_signup.php');
+//   exit();
+// }
 
-get('/signup/error/:message', 'render_signup_error');
-function render_signup_error($message){
+get('/signup', function(){
+    require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_signup.php");
+    exit();
+});
+
+get('/signup/error/:message', function ($message){
   $display_error = $message;
-  require_once(__DIR__.'/views/view_signup.php');
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_signup.php");
   exit();
-}
+});
 
-post('/signup', 'submit_signup');
-function submit_signup(){
-  require_once(__DIR__.'/bridges/bridge_signup.php');
+post('/signup', function(){
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/bridges/bridge_signup.php");
   exit();
-}
+});
 
 
 //---------- LOGIN ---------------
-get('/login', 'render_login');
-function render_login(){
-  require_once(__DIR__.'/views/view_login.php');
+get('/login', function (){
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_login.php");
   exit();
-}
+});
 
 
 //---------- USER DASHBOARD ---------------
