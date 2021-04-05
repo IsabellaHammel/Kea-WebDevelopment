@@ -132,8 +132,9 @@ validatePassword();
 if($error != null){
     showErrorMessage($error);
 }
-
-createUser();
+else {
+    createUser();
+}
 
 
 // Make helper function to build user
