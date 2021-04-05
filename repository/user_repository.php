@@ -1,6 +1,6 @@
 <?php
-require_once(__DIR__.'/repository/base_repository.php');
-require_once(__DIR__.'/repository/user_entity.php');
+require_once(__DIR__.'/base_repository.php');
+require_once(__DIR__.'/user.php');
 
 class UserRepository extends BaseRepository
 {
@@ -41,7 +41,7 @@ class UserRepository extends BaseRepository
         return $user;
     }
 
-    public function get_user_by_email(string $email): User // returns some user obj
+    public function get_user_by_email(string $email): ?User // returns some user obj
     {
         $query = $this->prepare('SELECT * FROM users WHERE user_email = :email');
         $query->bindValue(':email', $email);
@@ -111,13 +111,13 @@ class UserRepository extends BaseRepository
     private function map_row_to_user($row): User
     {
         return new User(
-            $row['user_id'],
-            $row['user_firstname'],
-            $row['user_lastname'],
-            $row['user_phone'],
-            $row['user_email'],
-            $row['user_password'],
-            $row['user_is_active']
+            $row->user_id,
+            $row->user_firstname,
+            $row->user_lastname,
+            $row->user_phone,
+            $row->user_email,
+            $row->user_password,
+            $row->user_is_active == '1'
         );
     }
     

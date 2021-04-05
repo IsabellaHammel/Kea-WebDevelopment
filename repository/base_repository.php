@@ -29,10 +29,10 @@ class BaseRepository extends PDO
 
     private function build_pdo_connection_string() : string
     {
-        $dbtype = self::$settings['database']['driver'];
-        $host = ':host=' . self::$settings['database']['host'];
-        $port = (!empty($settings['database']['port'])) ? (';port=' . $settings['database']['port']) : '';
-        $dbschema = ';dbname=' . self::$settings['database']['schema'];
+        $dbtype = $this->settings['database']['driver'];
+        $host = ':host=' . $this->settings['database']['host'];
+        $port = (!empty($this->settings['database']['port'])) ? (';port=' . $this->settings['database']['port']) : '';
+        $dbschema = ';dbname=' . $this->settings['database']['dbschema'];
 
         $connection_string = $dbtype . $host . $port . $dbschema;
         return $connection_string;

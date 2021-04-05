@@ -1,9 +1,12 @@
 <?php
-// require database once user repo
-// requre user once
+require_once(__DIR__.'/../repository/user_repository.php');
+require_once(__DIR__.'/../repository/user.php');
 
-$error = null;
+global $user_repository;
 global $error; // Needed to access error on line 100
+
+$user_repository = new UserRepository();
+$error = null;
 
 function appendError($message){
     global $error;
@@ -58,6 +61,16 @@ function validateEmail(){
     }
 }
 
+function validateUserNotExist(){
+    global $user_repository;
+    $email = $_POST['user_email'];
+    $user = $user_repository->get_user_by_email($email);
+    $is_exists = $user != null;
+    if($is_exists){
+        appendError('User already exists');
+    }
+}
+
 function validatePassword(){
     $password =  $_POST['user_password'];
     $confirmPassword =  $_POST['user_confirm_password'];
@@ -91,17 +104,37 @@ function setURL($endpoint){
     exit();
 }
 
+function createUser(){
+    global $user_repository;
+
+    $user = new User(
+        null,
+        $_POST['user_first_name'],
+        $_POST['user_last_name'],
+        $_POST['user_phone'],
+        $_POST['user_email'],
+        $_POST['user_password'],
+        null
+    );
+    $user_repository->create_user($user);
+}
+
 validateName();
 
 validatePhone();
 
 validateEmail();
 
+validateUserNotExist();
+
 validatePassword();
 
 if($error != null){
     showErrorMessage($error);
 }
+
+createUser();
+
 
 // Make helper function to build user
 // call repo and save user

@@ -21,6 +21,12 @@ function render_signup_error($message){
   exit();
 }
 
+post('/signup', 'submit_signup');
+function submit_signup(){
+  require_once(__DIR__.'/bridges/bridge_signup.php');
+  exit();
+}
+
 
 //---------- LOGIN ---------------
 get('/login', 'render_login');
@@ -29,11 +35,6 @@ function render_login(){
   exit();
 }
 
-post('/signup', 'submit_signup');
-function submit_signup(){
-  require_once(__DIR__.'/bridges/bridge_signup.php');
-  exit();
-}
 
 //---------- USER DASHBOARD ---------------
 // Create routes
