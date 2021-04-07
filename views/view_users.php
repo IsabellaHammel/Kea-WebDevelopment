@@ -1,10 +1,8 @@
 <?php
+require_once(__DIR__.'/../repository/user_repository.php');
 
 // get and show user info - 
 // add deativate button
-
-
-require_once(__DIR__.'/../db.php'); // change dir
 
 $q = $db->prepare('SELECT * FROM users');
 $q->execute();

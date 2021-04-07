@@ -16,12 +16,12 @@
       </li>
       <li>
         <a href="/admin">  <!-- Hide this if not logged in check session -->
-          users
+          admin
         </a>
       </li>
       <li>
         <a href="/user">  <!-- Hide this if not logged in check session -->
-          users
+          user
         </a>
       </li>   
 
@@ -35,3 +35,4 @@
       
     </ul>
   </nav>
+

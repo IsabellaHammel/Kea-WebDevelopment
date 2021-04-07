@@ -1,4 +1,6 @@
 <?php
+require_once(__DIR__.'/../repository/user_repository.php');
+require_once(__DIR__.'/../repository/user.php');
 
 // user repo
 
@@ -12,14 +14,13 @@
 // TODO: validate user_email
 // TODO: validate user_password
 
-
 try{
-  $q = $db->prepare('SELECT * FROM users WHERE email = :email');
+  $q = $db->prepare('SELECT user_email, user_password FROM users WHERE email = :email AND user_password = :u_password');
   $q->bindValue(':email', $_POST['user_email']);
+  $q->bindValue(':u_password', $_POST['user_password']);
   $q->execute();
   $user = $q->fetchAll();
-  // if the email is not in the db we get []
-  // if the email is in the db we get [{"id":"1","email":"a@a.com"}]
+ 
   // The user is not found in the db
   if( count($user) == 0 ){
     header('Location: /login/error');

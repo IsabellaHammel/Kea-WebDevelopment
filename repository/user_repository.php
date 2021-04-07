@@ -88,7 +88,7 @@ class UserRepository extends BaseRepository
         VALUES ('{$user->get_firstname()}', '{$user->get_lastname()}', '{$user->get_phone()}', '{$user->get_email()}', '{$user->get_password()}', true)";
 
         $db_response = $this->query($sql);
-        $is_created = $db_response  === TRUE; // try creates a user in DB and returns if created
+        $is_created = $db_response  == TRUE; // try creates a user in DB and returns if created
         
         if($is_created)
         {

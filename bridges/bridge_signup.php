@@ -133,7 +133,11 @@ if($error != null){
     showErrorMessage($error);
 }
 else {
-    createUser();
+    try {
+        createUser();
+    } catch (Exception $e) {
+        showErrorMessage($e->getMessage());
+    }
 }
 
 

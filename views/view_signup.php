@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup form</title>
-</head>
-<body>
+
     <?php
     if(isset($display_error)){
     ?>
@@ -25,10 +18,8 @@
             <input name="user_email" type="text"  placeholder="email">
             <br><br>
             <input name="user_password" type="password"  placeholder="password">
-            <br>
+            <br><br>
             <input name="user_confirm_password" type="password" placeholder="confirm password">
             <br><br>
         <button>signup</button>
     </form>
-</body>
-</html>
