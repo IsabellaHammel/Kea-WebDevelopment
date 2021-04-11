@@ -119,6 +119,8 @@ function createUser(){
     $user_repository->create_user($user);
 }
 
+// ---------------- VALIDATE FORM INPUT AND USER
+
 validateName();
 
 validatePhone();
@@ -134,16 +136,13 @@ if($error != null){
 }
 else {
     try {
-        createUser();
+
+        createUser();  // Try create a user if no errors
+
     } catch (Exception $e) {
-        showErrorMessage($e->getMessage());
+        showErrorMessage($e->getMessage()); // Failed to create user
     }
 }
 
-
-// Make helper function to build user
-// call repo and save user
-
-// success go to login
 setURL('/login');
 

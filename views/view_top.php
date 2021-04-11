@@ -15,17 +15,17 @@
         </a>
       </li>
       <li>
-        <a href="/admin">  <!-- Hide this if not logged in check session -->
+        <a href="/admin">  <!-- TODO: Hide this if not logged in check session -->
           admin
         </a>
       </li>
       <li>
-        <a href="/user">  <!-- Hide this if not logged in check session -->
+        <a href="/user">  <!-- TODO: Hide this if not logged in check session -->
           user
         </a>
       </li>   
 
-      <!-- Dynamic switch based on session - signup, login, logout-->       
+      <!-- TODO: Dynamic switch based on session - signup, login, logout-->       
       <li>
         <a href="/login"> <!-- Only shown when no session -->
           login
