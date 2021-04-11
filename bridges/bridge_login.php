@@ -2,36 +2,47 @@
 require_once(__DIR__.'/../repository/user_repository.php');
 require_once(__DIR__.'/../repository/user.php');
 
-// user repo
+global $user_repository;  // Sets user repository globally so it can be used in functions 
+$user_repository = new UserRepository();  // Creates a new user_repository object to used
+
 
 // call user repo and get user by email and verify password
+function try_login(): string 
+{
+  global $user_repository;
 
-// set user email in SESSION
+  $user_email = ... // fetch email from _POST
+  $user_pass = ... // fetch pass from _POST
+  $user = ... // Call user repository and get user domain object using the email provided
 
-// redirect to user page
-
-
-// TODO: validate user_email
-// TODO: validate user_password
-
-try{
-  $q = $db->prepare('SELECT user_email, user_password FROM users WHERE email = :email AND user_password = :u_password');
-  $q->bindValue(':email', $_POST['user_email']);
-  $q->bindValue(':u_password', $_POST['user_password']);
-  $q->execute();
-  $user = $q->fetchAll();
- 
-  // The user is not found in the db
-  if( count($user) == 0 ){
-    header('Location: /login/error');
-    exit();
+  if(...) // if no user was returned from repository or $user.get_password() != $user_pass
+  {
+      return "Either password or email was invalid"; // Return error message
   }
-  // The user is found in the db
+  
   session_start();
-  $_SESSION['email'] = $_POST['user_email'];
-  header('Location: /admin');
-  exit();
+  $_SESSION['user_id'] = ... //Set user session by user_id to ensure user stays logged in
 
-}catch(PDOException $ex){
-  echo $ex;
+  return ""; // Return empty error message
 }
+
+// redirect function
+function redirect(string $endpoint)
+{
+  // TODO: Rewrite and user string interpolation ie back quotes ``  to redirect to endpoiont
+  // ie `Location: {$someEndpointVar}`
+  header('Location: ...'); 
+  exit();
+}
+
+
+// ------------------- Main flow -------------------------------
+
+$error = try_login();
+if(...) // if error is not empty ie $errorMessage != ""
+{
+  redirect("/login/error"); // Redirect to error page
+}
+redirect(...); // Redirect to user page
+
+
