@@ -8,7 +8,7 @@ try{
   $q = $db->prepare('DROP TABLE IF EXISTS users');
   $q->execute();
   $q = $db->prepare('CREATE TABLE users(
-    user_uuid         TEXT,
+    user_uuid         TEXT UNIQUE,
     user_name         TEXT,
     user_last_name    TEXT,
     user_email        TEXT UNIQUE,

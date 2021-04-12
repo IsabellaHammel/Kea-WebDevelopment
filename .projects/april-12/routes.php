@@ -10,6 +10,12 @@ get('/', function(){
 
 // #####################
 
+get('/users', function(){
+    require_once($_SERVER['DOCUMENT_ROOT'].'/views/view_users.php'); // document root shouldnt be used in these folders
+});
+
+// #####################
+
 post('/users/create', function(){
     echo 'user created';
 });
