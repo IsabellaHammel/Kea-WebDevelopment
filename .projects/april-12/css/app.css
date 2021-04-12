@@ -1,0 +1,4 @@
+div#users {
+    display: grid;
+    gap: 1rem;
+}
