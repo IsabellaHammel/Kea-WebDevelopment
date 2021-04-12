@@ -7,6 +7,14 @@ if(!isset($_POST['login_user_password'])){
     header('Location: /login');
     exit();
 }
+if(!filter_var($_POST['login_user_email'], FILTER_VALIDATE_EMAIL)){
+    header('Location: /login');
+    exit();
+}
+if(strlen($_POST['login_user_password']) < 2 || strlen($_POST['login_user_password']) > 50){
+    header('Location: /login');
+    exit();
+}
 
 $user_id = $_GET['id'];
 
@@ -24,6 +32,8 @@ try{
     header('Location: /login');
     exit();
   }
+  session_start();
+  $_SESSION['user_uuid'] = $user['user_uuid'];
   header('Location: /admin');
     exit();
 }catch(PDOException $ex){
