@@ -10,8 +10,20 @@ get('/', function(){
 
 // #####################
 
+get('/login', function(){
+    require_once($_SERVER['DOCUMENT_ROOT'].'/views/view_login.php'); // document root shouldnt be used in these folders
+});
+
+// #####################
+
 get('/users', function(){
     require_once($_SERVER['DOCUMENT_ROOT'].'/views/view_users.php'); // document root shouldnt be used in these folders
+});
+
+// #####################
+
+post('/login', function(){
+    require_once($_SERVER['DOCUMENT_ROOT'].'/bridges/brigde_login.php');
 });
 
 // #####################
@@ -28,7 +40,7 @@ post('/users/update/:id', function($id){
 
 // #####################
 
-post('/users/delete/:id', function($id){
+post('/users/delete/:user_id', function($user_id){
     require_once($_SERVER['DOCUMENT_ROOT'].'/apis/api_delete_user.php');
 });
 
