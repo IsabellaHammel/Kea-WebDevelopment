@@ -10,6 +10,12 @@ get('/', function(){
 
 // #####################
 
+get('/admin', function(){
+    require_once($_SERVER['DOCUMENT_ROOT'].'/views/view_admin.php'); // document root shouldnt be used in these folders
+});
+
+// #####################
+
 get('/login', function(){
     require_once($_SERVER['DOCUMENT_ROOT'].'/views/view_login.php'); // document root shouldnt be used in these folders
 });
