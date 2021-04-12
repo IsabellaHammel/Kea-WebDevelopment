@@ -46,7 +46,7 @@ get('/login', function (){
 post('/login', function(){
   require_once("{$_SERVER['DOCUMENT_ROOT']}/bridges/ ... "); // TODO: login bridge
   exit();
-})
+});
 
 
 //---------- USERS DASHBOARD ---------------
