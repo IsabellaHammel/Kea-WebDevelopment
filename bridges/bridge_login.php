@@ -11,22 +11,22 @@ function try_login(): string
 {
   global $user_repository;
 
-  $user_email = ...;   // TODO: fetch email from _POST
-  $user_pass = ...;    // TODO: fetch pass from _POST
-  $user = ...;         // TODO: Call user repository and get user domain object using the email provided
+  $user_email = $_POST['user_email'];
+  $user_pass = $_POST['user_password'];
+  $user = $user_repository->get_user_by_email($user_email);
 
-  if(...) // TODO: if no user was returned from repository or $user.get_password() != $user_pass
+  if($user == null || $user->get_password() != $user_pass) 
   {
-      return "Either password or email was invalid"; // Return error message
+      return "Password or email was invalid"; // Return error message
   }
   
-  if(...) // TODO: Check if user is active 
+  if(!$user->get_is_active()) // Check if user is active 
   {
-
+    return "User is no longer active";
   }
 
   session_start();
-  $_SESSION['user_id'] = ... // TODO: Set user session by user_id to ensure user stays logged in
+  $_SESSION['user_id'] = $user->get_id(); 
 
   return ""; // Return empty error message
 }
@@ -34,9 +34,7 @@ function try_login(): string
 // redirect function
 function redirect(string $endpoint)
 {
-  // TODO: Rewrite and user string interpolation ie back quotes ``  to redirect to endpoiont
-  // ie "Location: $someEndpointVar"
-  header("Location: ..."); 
+  header("Location: $endpoint"); 
   exit();
 }
 
@@ -44,10 +42,10 @@ function redirect(string $endpoint)
 // ------------------- Main flow -------------------------------
 
 $error = try_login();
-if(...) // TODO: if error is not empty ie $errorMessage != ""
+if($error != "") // if error is not empty go error page
 {
-  redirect("/login/error");
+  redirect("/login/error/$error");
 }
-redirect(...); // TODO: Redirect to user page
+redirect("/admin");
 
 

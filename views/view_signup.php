@@ -13,6 +13,8 @@
             <br><br>
             <input name="user_last_name" type="text" placeholder="last name">
             <br><br>
+            <input name="user_age" type="text" placeholder="age">
+            <br><br>
             <input name="user_phone"  type="text" placeholder="phone">
             <br><br>
             <input name="user_email" type="text"  placeholder="email">

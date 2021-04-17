@@ -25,9 +25,9 @@ class UserRepository extends BaseRepository
         return $users;
     }
 
-    public function get_user(int $id): User // returns some user obj
+    public function get_user($id): User // returns some user obj
     {
-        $query = $this->prepare('SELECT * FROM users WHERE id = :id'); // inherited from Base/PDO
+        $query = $this->prepare('SELECT * FROM users WHERE user_id = :id'); // inherited from Base/PDO
         $query->bindValue(':id', $id);
         $query->execute(); // executes query in DB
         $user_row = $query->fetch(); // retrieves single user
@@ -59,33 +59,27 @@ class UserRepository extends BaseRepository
 
     public function update_user(User $user)
     {
-        $sql_command = 'UPDATE users';
-        $sql_condition = "WHERE user_id = {$user->get_id()}";
+        $sql_command = 'UPDATE users ';
+        $sql_condition = " WHERE user_id = {$user->get_id()}";
 
         // Builds SET column1=value, column2=value2,...
         $sql_set = 'SET '; // split set up to avoid overriding values with null in DB if value is not provided
         $sql_set = $this->add_query_set($sql_set,  'user_firstname', $user->get_firstname());
         $sql_set = $this->add_query_set($sql_set,  'user_lastname', $user->get_lastname());
+        $sql_set = $this->add_query_set($sql_set,  'user_age', $user->get_age());
         $sql_set = $this->add_query_set($sql_set,  'user_phone', $user->get_phone());
         $sql_set = $this->add_query_set($sql_set,  'user_email', $user->get_email());
         $sql_set = $this->add_query_set($sql_set,  'user_password', $user->get_password());
-        $sql_set = $this->add_query_set($sql_set,  'user_is_active', $user->get_is_active());
+        $sql_set = $this->add_query_set($sql_set,  'user_is_active', $user->get_is_active(), is_last: true);
         
         $sql_query = $sql_command . $sql_set . $sql_condition;
-
-        $db_response = $this->query($sql_query);
-        $is_updated = $db_response  === TRUE; // try update
-        
-        if(!$is_updated)
-        {
-            throw new Exception('Unable to update user');
-        }
+        $this->query($sql_query);
     }
 
     public function create_user(User $user): int // returns user 
     {
-        $sql = "INSERT INTO users (user_firstname, user_lastname, user_phone, user_email, user_password, user_is_active)
-        VALUES ('{$user->get_firstname()}', '{$user->get_lastname()}', '{$user->get_phone()}', '{$user->get_email()}', '{$user->get_password()}', true)";
+        $sql = "INSERT INTO users (user_firstname, user_lastname, user_age, user_phone, user_email, user_password, user_is_active)
+        VALUES ('{$user->get_firstname()}', '{$user->get_lastname()}', '{$user->get_age()}', '{$user->get_phone()}', '{$user->get_email()}', '{$user->get_password()}', true)";
 
         $db_response = $this->query($sql);
         $is_created = $db_response  == TRUE; // try creates a user in DB and returns if created
@@ -99,13 +93,19 @@ class UserRepository extends BaseRepository
         throw new Exception('Unable to create user');
     }
 
-    private function add_query_set(string $set_query, string $column, $value): string
+    private function add_query_set(string $set_query, string $column, $value, bool $is_last = false): string
     {        
-        if($value === '' || $value == null)
+        if($value === '' || $value === null)
         {
             return $set_query;
         }
-        return $set_query . "{$column}={$value},"; // TODO CHECK IF LAST COMMA BREAKS
+        if(gettype($value) === 'boolean')
+        {
+            $value = $value ? 'True' : 'False';
+        }
+
+        $seperator = $is_last ? '' : ',';
+        return $set_query . "{$column}=\"{$value}\"{$seperator}"; // TODO CHECK IF LAST COMMA BREAKS
     }
 
     private function map_row_to_user($row): User
@@ -114,6 +114,7 @@ class UserRepository extends BaseRepository
             $row->user_id,
             $row->user_firstname,
             $row->user_lastname,
+            $row->user_age,
             $row->user_phone,
             $row->user_email,
             $row->user_password,

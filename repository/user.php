@@ -6,16 +6,18 @@ class User
     private ?int $_id;
     private string $_firstname;
     private string $_lastname;
+    private int $_age;
     private string $_phone;
     private string $_email;
     private string $_password;
     private ?bool $_is_active; // ? means nullable thus is active can be true, false or null
 
-    public function __construct($id, $firstname, $lastname, $phone, $email, $password, $is_active)
+    public function __construct($id, $firstname, $lastname, $age, $phone, $email, $password, $is_active)
     {
         $this->_id = $id;
         $this->_firstname = $firstname;
         $this->_lastname = $lastname;
+        $this->_age = $age;
         $this->_phone = $phone;
         $this->_email = $email;
         $this->_password = $password;
@@ -40,6 +42,16 @@ class User
     public function set_lastname(string $lastname)
     {
         $this->_lastname = $lastname;
+    }
+
+    public function get_age(): string
+    {
+        return $this->_age;
+    }
+
+    public function set_age(string $age)
+    {
+        $this->_age = $age;
     }
     
     public function get_phone(): string

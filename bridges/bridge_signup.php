@@ -35,6 +35,14 @@ function validateName(){
     }
 }
 
+function validateAge(){
+    $age = $_POST['user_age'];
+
+    if($age < 1){
+        appendError("Age must be greater than zero");
+    }
+}
+
 function validatePhone(){
     $phone = trim($_POST['user_phone']);
     
@@ -96,10 +104,10 @@ function isLengthValid($input, $min, $max){
 }
 
 function showErrorMessage($error_message){
-    setURL("/signup/error/$error_message");
+    redirect("/signup/error/$error_message");
 }
 
-function setURL($endpoint){
+function redirect($endpoint){
     header('Location: ' . $endpoint);
     exit();
 }
@@ -111,6 +119,7 @@ function createUser(){
         null,
         $_POST['user_first_name'],
         $_POST['user_last_name'],
+        $_POST['user_age'],
         $_POST['user_phone'],
         $_POST['user_email'],
         $_POST['user_password'],
@@ -122,6 +131,8 @@ function createUser(){
 // ---------------- VALIDATE FORM INPUT AND USER
 
 validateName();
+
+validateAge();
 
 validatePhone();
 
@@ -144,5 +155,5 @@ else {
     }
 }
 
-setURL('/login');
+redirect('/login');
 
