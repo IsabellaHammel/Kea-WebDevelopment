@@ -114,6 +114,7 @@ function redirect($endpoint){
 
 function createUser(){
     global $user_repository;
+    $hash_password = password_hash($_POST['user_password'], PASSWORD_DEFAULT);
 
     $user = new User(
         null,
@@ -122,7 +123,7 @@ function createUser(){
         $_POST['user_age'],
         $_POST['user_phone'],
         $_POST['user_email'],
-        $_POST['user_password'],
+        $hash_password,
         null
     );
     $user_repository->create_user($user);

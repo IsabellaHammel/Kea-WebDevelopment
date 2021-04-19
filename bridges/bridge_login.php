@@ -15,7 +15,7 @@ function try_login(): string
   $user_pass = $_POST['user_password'];
   $user = $user_repository->get_user_by_email($user_email);
 
-  if($user == null || $user->get_password() != $user_pass) 
+  if($user == null || ! password_verify($user_pass, $user->get_password())) 
   {
       return "Password or email was invalid"; // Return error message
   }
