@@ -20,7 +20,12 @@ try{
     header('Location: /login');
     exit();
   }
-  echo "Hi {$user['user_name']} {$user['user_last_name']}";
+  ?>
+  <div>Hi <?= $user['user_name'] ?> <?= $user['user_last_name']?></div>
+  <form action="/deactivate" method="POST">
+    <button>deactivate account</button>
+  </form>
+  <?php
 }catch(PDOException $ex){
   echo $ex;
 }

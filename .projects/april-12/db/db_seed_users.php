@@ -8,7 +8,7 @@ try{
   $db = new PDO("sqlite:$db_path");
   $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-  $q = $db->prepare("INSERT INTO users VALUES (:user_uuid, :user_name, :user_last_name, :user_email, :user_phone, :user_password)");
+  $q = $db->prepare("INSERT INTO users VALUES (:user_uuid, :user_name, :user_last_name, :user_email, :user_phone, :user_password, :user_active)");
   for($i = 0; $i < 500; $i++){
     $q->bindValue(':user_uuid', bin2hex(random_bytes(16)));
     $q->bindValue(':user_name', $faker->firstName());
@@ -16,6 +16,7 @@ try{
     $q->bindValue(':user_email', $faker->email());
     $q->bindValue(':user_phone', mt_rand(10000000,99999999));
     $q->bindValue(':user_password', $faker->password());
+    $q->bindValue(':user_active', 1);
     $q->execute();
   }  
 }catch(PDOException $ex){

@@ -34,6 +34,14 @@ post('/login', function(){
 
 // #####################
 
+post('/deactivate', function(){
+    require_once($_SERVER['DOCUMENT_ROOT'].'/views/deactivate.php');
+});
+
+// post('/deactivate', 'views/deactivate.php');
+
+// #####################
+
 post('/users/create', function(){
     echo 'user created';
 });
