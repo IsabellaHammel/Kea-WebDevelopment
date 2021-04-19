@@ -1,6 +1,7 @@
 <?php
-
-session_start();
+if( ! isset($_SESSION) ){
+  session_start();  
+}
 
 if( ! isset($_POST['login_user_email']) ){
   header('Location: /login');
