@@ -34,6 +34,12 @@ get('/signup', function(){
 
 // #####################
 
+get('/email', function(){
+    require_once($_SERVER['DOCUMENT_ROOT'].'/views/view_email.php'); // document root shouldnt be used in these folders
+});
+
+// #####################
+
 post('/login', function(){
     require_once($_SERVER['DOCUMENT_ROOT'].'/bridges/bridge_login.php');
 });
