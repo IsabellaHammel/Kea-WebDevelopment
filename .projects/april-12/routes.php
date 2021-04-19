@@ -28,8 +28,14 @@ get('/users', function(){
 
 // #####################
 
+get('/signup', function(){
+    require_once($_SERVER['DOCUMENT_ROOT'].'/views/view_signup.php'); // document root shouldnt be used in these folders
+});
+
+// #####################
+
 post('/login', function(){
-    require_once($_SERVER['DOCUMENT_ROOT'].'/bridges/brigde_login.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/bridges/bridge_login.php');
 });
 
 // #####################
@@ -38,7 +44,7 @@ post('/deactivate', function(){
     require_once($_SERVER['DOCUMENT_ROOT'].'/views/deactivate.php');
 });
 
-// post('/deactivate', 'views/deactivate.php');
+// post('/deactivate', 'views/deactivate.php'); --> new update, also update router.php
 
 // #####################
 
@@ -69,6 +75,13 @@ post('/db-create-users', function(){
 post('/db-seed-users', function(){
     require_once($_SERVER['DOCUMENT_ROOT'].'/db/db_seed_users.php');
 });
+
+
+post('/signup', function(){
+    require_once($_SERVER['DOCUMENT_ROOT'].'/bridges/bridge_signup.php');
+});
+
+
 
 // #####################
 
