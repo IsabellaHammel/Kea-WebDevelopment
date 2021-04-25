@@ -30,6 +30,13 @@ post('/signup', function(){
 
 
 //---------- LOGIN ---------------
+get('/', function (){
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php");
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_login.php");
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php");
+  exit();
+});
+
 get('/login', function (){
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php");
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_login.php");

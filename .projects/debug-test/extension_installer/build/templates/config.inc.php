@@ -32,8 +32,8 @@
 
 	// Specify the path to the database dump utilities for this server.
 	// You can set these to '' if no dumper is available.
-	$conf['servers'][0]['pg_dump_path'] = 'E:\xampp\pgsql/pg_dump.exe';
-	$conf['servers'][0]['pg_dumpall_path'] = 'E:\xampp\pgsql/pg_dumpall.exe';
+	$conf['servers'][0]['pg_dump_path'] = 'C:\Program Files\PostgreSQL/pg_dump.exe';
+	$conf['servers'][0]['pg_dumpall_path'] = 'C:\Program Files\PostgreSQL/pg_dumpall.exe';
 
 	// Example for a second server (PostgreSQL for Windows)
 	//$conf['servers'][1]['desc'] = 'Test Server';
