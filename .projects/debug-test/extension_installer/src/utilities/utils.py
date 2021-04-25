@@ -16,3 +16,15 @@ def prompt(message):
             return False
         print('please enter y for yes or n for no')
 
+
+def generate_content(set_line_funcs, file_path, destination_path):
+    generated_content = []
+    with open(file_path, 'r') as file:
+        for line in file.readlines():
+            for line_func in set_line_funcs:
+                line = line_func(line)
+            generated_content.append(line)
+
+    with open(destination_path, 'w') as file:
+        file.writelines(generated_content)
+ 
