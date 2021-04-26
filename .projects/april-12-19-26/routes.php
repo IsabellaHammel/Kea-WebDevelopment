@@ -38,6 +38,10 @@ get('/email', function(){
     require_once($_SERVER['DOCUMENT_ROOT'].'/views/view_email.php'); // document root shouldnt be used in these folders
 });
 
+get('/search', function(){
+    require_once($_SERVER['DOCUMENT_ROOT'].'/views/view_search.php'); // document root shouldnt be used in these folders
+});
+
 // #####################
 
 post('/login', function(){
@@ -53,6 +57,10 @@ post('/deactivate', function(){
 // post('/deactivate', 'views/deactivate.php'); --> new update, also update router.php
 
 // #####################
+
+post('/search', function(){
+    require_once($_SERVER['DOCUMENT_ROOT'].'/apis/api_search.php');
+});
 
 post('/users/create', function(){
     echo 'user created';
