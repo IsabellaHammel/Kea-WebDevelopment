@@ -28,9 +28,9 @@
     </style>
 </head>
 
-<body>
+<body onclick="hide_results()">
     <form onsubmit="return false">
-        <input name="search_for" type="text" oninput="search()" onfocus="show_results()" onblur="hide_results()">
+        <input name="search_for" type="text" oninput="search()" onfocus="show_results()" >
         <div id="search_results"></div>
     </form>
 
@@ -52,7 +52,7 @@
                 users.forEach(user => {
                     let user_div = `
                     <div class="search_result">
-                        ${user.user_name} ${user.user_last_name}
+                        <a href="/users/${user.uuid}">${user.user_name} ${user.user_last_name}</a>
                     </div>`
                     document.querySelector("#search_results").insertAdjacentHTML('beforeend', user_div)
                 })

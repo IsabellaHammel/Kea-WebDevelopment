@@ -42,6 +42,10 @@ get('/search', function(){
     require_once($_SERVER['DOCUMENT_ROOT'].'/views/view_search.php'); // document root shouldnt be used in these folders
 });
 
+get('/users/$user_uuid', function(){
+    require_once($_SERVER['DOCUMENT_ROOT'].'/views/view_user.php'); // document root shouldnt be used in these folders
+});
+
 // #####################
 
 post('/login', function(){

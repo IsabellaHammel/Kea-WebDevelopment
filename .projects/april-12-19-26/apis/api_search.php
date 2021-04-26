@@ -21,7 +21,7 @@ try{
     $db = new PDO("sqlite:$db_path");
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-    $q = $db->prepare('SELECT user_name, user_last_name FROM users WHERE user_name LIKE :user_name LIMIT 20 COLLATE NOCASE');
+    $q = $db->prepare('SELECT user_uuid, user_name, user_last_name FROM users WHERE user_name LIKE :user_name LIMIT 20 COLLATE NOCASE');
     $q->bindValue(':user_name', '%'.trim($_POST['search_for']).'%');
     $q->execute();
     $users = $q->fetchAll();
