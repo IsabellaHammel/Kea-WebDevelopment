@@ -79,11 +79,29 @@ get('/users', function (){
   exit();
 });
 
+get('/users/$user_uuid', function(){
+  require_once("{$_SERVER['DOCUMENT_ROOT']}'/views/view_user.php"); 
+});
 
 post('/deactivate', function(){
   require_once("{$_SERVER['DOCUMENT_ROOT']}/bridges/bridge_user.php");
   deactivate_user();
   exit();
+});
+
+get('/email', function(){
+  require_once("{$_SERVER['DOCUMENT_ROOT']}'/views/view_email.php");
+  exit();
+});
+
+get('/search', function(){
+  require_once("{$_SERVER['DOCUMENT_ROOT']}'/views/view_search.php"); 
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php"); 
+  exit();
+});
+
+post('/search', function(){
+  require_once("{$_SERVER['DOCUMENT_ROOT']}'/apis/api_search.php");
 });
 
 
