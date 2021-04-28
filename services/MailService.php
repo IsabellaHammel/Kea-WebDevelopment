@@ -1,5 +1,5 @@
 <?php
-use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\PHPMailer; // namespace of phpmailer. the namespace is only defined in phpmailer and not anywhere else
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
@@ -25,7 +25,7 @@ class MailService
             $mail->addAddress($recipient, 'recipient');
         
             //Content
-            $mail->isHTML(true);  
+            $mail->isHTML(true); // message can contain html for formatting, bold, italic etc. 
             $mail->Subject = $subject;
             $mail->Body    = $message;
             $mail->send();
@@ -39,7 +39,7 @@ class MailService
     {
         $config = $this->get_config();
 
-        $mail = new PHPMailer(true);
+        $mail = new PHPMailer(exceptions: true);  // external exceptions are thrown
         
         //Server settings
         // $mail->SMTPDebug = 2;                                       //Enable verbose debug output
