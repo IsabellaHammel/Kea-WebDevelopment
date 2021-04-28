@@ -38,6 +38,20 @@ function redirect(string $endpoint)
   exit();
 }
 
+function isVerified() // NEW - PROBS NOT RIGHT ##############################
+{
+  global $user_repository;
+
+  $user = $_POST['user_is_verified'];
+
+  if($user->isVerified == true)
+  {
+    // check if user is verified
+  }else{
+    // show error fail
+  }
+}
+
 
 // ------------------- Main flow -------------------------------
 
