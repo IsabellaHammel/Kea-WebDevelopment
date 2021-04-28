@@ -11,8 +11,21 @@ class User
     private string $_email;
     private string $_password;
     private ?bool $_is_active; // ? means nullable thus is active can be true, false or null
+    private bool $_is_verified;
+    private string $_verify_token;
 
-    public function __construct($id, $firstname, $lastname, $age, $phone, $email, $password, $is_active)
+    public function __construct(
+        $id, 
+        $firstname, 
+        $lastname, 
+        $age, 
+        $phone, 
+        $email, 
+        $password, 
+        $is_active,
+        $is_verified,
+        $verify_token
+    )
     {
         $this->_id = $id;
         $this->_firstname = $firstname;
@@ -22,6 +35,9 @@ class User
         $this->_email = $email;
         $this->_password = $password;
         $this->_is_active = $is_active;
+        $this->_is_verified = $is_verified;
+        $this->_verify_token = $verify_token;
+
     }
 
     public function get_firstname(): string
@@ -98,5 +114,26 @@ class User
     {
         $this->_is_active = $is_active;
     }
+
+    public function get_is_verified(): bool
+    {
+        return $this->_is_verified;
+    }
+
+    public function set_is_verified(bool $is_verified)
+    {
+        $this->_is_verified = $is_verified;
+    }
+
+    public function get_verify_token(): string
+    {
+        return $this->_verify_token;
+    }
+
+    public function set_verify_token(string $verify_token)
+    {
+        $this->_verify_token = $verify_token;
+    }
+
 
 }

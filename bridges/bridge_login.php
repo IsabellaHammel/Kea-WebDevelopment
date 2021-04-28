@@ -25,6 +25,11 @@ function try_login(): string
     return "User is no longer active";
   }
 
+  if(!$user->get_is_verified())
+  {
+    return "User is not verified";
+  }
+
   session_start();
   $_SESSION['user_id'] = $user->get_id(); 
 
@@ -36,20 +41,6 @@ function redirect(string $endpoint)
 {
   header("Location: $endpoint"); 
   exit();
-}
-
-function isVerified() // NEW - PROBS NOT RIGHT ##############################
-{
-  global $user_repository;
-
-  $user = $_POST['user_is_verified'];
-
-  if($user->isVerified == true)
-  {
-    // check if user is verified
-  }else{
-    // show error fail
-  }
 }
 
 
