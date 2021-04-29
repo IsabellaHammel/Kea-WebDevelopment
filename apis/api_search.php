@@ -21,8 +21,8 @@ try{
     $db = new PDO("sqlite:$db_path");
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-    $q = $db->prepare('SELECT user_uuid, user_name, user_last_name FROM users WHERE user_name LIKE :user_name LIMIT 20 COLLATE NOCASE');
-    $q->bindValue(':user_name', '%'.trim($_POST['search_for']).'%');
+    $q = $db->prepare('SELECT user_id, user_firstname, user_lastname FROM users WHERE user_firstname LIKE :user_firstname LIMIT 20 COLLATE NOCASE');
+    $q->bindValue(':user_firstname', '%'.trim($_POST['search_for']).'%');
     $q->execute();
     $users = $q->fetchAll();
     // Cannot pass arrays or json to the frontend. you can 'arrays' looking like json looking like string
