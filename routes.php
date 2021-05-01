@@ -80,7 +80,7 @@ get('/users', function (){
 });
 
 get('/users/$user_uuid', function(){
-  require_once("{$_SERVER['DOCUMENT_ROOT']}'/views/view_user.php"); 
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_user.php"); 
 });
 
 post('/deactivate', function(){
@@ -89,19 +89,22 @@ post('/deactivate', function(){
   exit();
 });
 
-get('/email', function(){
-  require_once("{$_SERVER['DOCUMENT_ROOT']}'/views/view_email.php");
-  exit();
-});
-
 get('/search', function(){
-  require_once("{$_SERVER['DOCUMENT_ROOT']}'/views/view_search.php"); 
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_search.php"); 
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php"); 
   exit();
 });
 
 post('/search', function(){
-  require_once("{$_SERVER['DOCUMENT_ROOT']}'/apis/api_search.php");
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/apis/api_search.php");
+  exit();
+});
+
+//---------- VERIFICATION ------------
+get('/verify/:token', function($token){
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/bridges/bridge_verify.php");
+  verify_user($token);
+  exit();
 });
 
 

@@ -1,6 +1,7 @@
 <?php
 require_once(__DIR__.'/../repository/user_repository.php');
 require_once(__DIR__.'/../repository/user.php');
+require_once(__DIR__.'/../services/MailService.php');
 
 global $user_repository;
 global $error; // Needed to access error on line 100
@@ -116,6 +117,8 @@ function createUser(){
     global $user_repository;
     $hash_password = password_hash($_POST['user_password'], PASSWORD_DEFAULT);
 
+    $verify_token = uniqid();
+
     $user = new User(
         null,
         $_POST['user_first_name'],
@@ -124,9 +127,27 @@ function createUser(){
         $_POST['user_phone'],
         $_POST['user_email'],
         $hash_password,
-        null
+        null,
+        false,
+        $verify_token
     );
     $user_repository->create_user($user);
+    send_verification_mail($verify_token);
+}
+
+function send_verification_mail($token){
+    $mail_service = new MailService();
+    $user_email = $_POST['user_email'];
+    $fullname = "{$_POST['user_first_name']} {$_POST['user_last_name']}";
+    $verify_link = $_SERVER['SERVER_NAME'] . '/verify/' . $token;
+    $subject = "KEA test - Please verify your account";
+    
+    $message = " <div> <b>Hello {$fullname}</b> </div> 
+    <div> Please verify your account by pressing this <a href='$verify_link'>link</a> </div>
+    <div> Kind Regards </div>
+    <div> - Kea Test </div>";
+
+    $mail_service->sendMail($message, $subject, $user_email);
 }
 
 // ---------------- VALIDATE FORM INPUT AND USER

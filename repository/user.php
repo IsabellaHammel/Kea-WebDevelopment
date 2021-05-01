@@ -60,6 +60,11 @@ class User
         $this->_lastname = $lastname;
     }
 
+    public function get_fullname(): string
+    {
+        return $this->_firstname . ' ' . $this->_lastname;
+    }
+
     public function get_age(): string
     {
         return $this->_age;

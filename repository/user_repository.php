@@ -57,6 +57,22 @@ class UserRepository extends BaseRepository
         return $user;
     }
 
+    public function get_user_by_verify_token(string $token): ?User
+    {
+        $query = $this->prepare('SELECT * FROM users WHERE user_verify_token = :token');
+        $query->bindValue(':token', $token);
+        $query->execute();
+        $user_row = $query->fetch();
+
+        if($user_row == FALSE)
+        {
+            return null;
+        }
+
+        $user = $this->map_row_to_user($user_row);
+        return $user;
+    }
+
     public function update_user(User $user)
     {
         $sql_command = 'UPDATE users ';
@@ -104,7 +120,7 @@ class UserRepository extends BaseRepository
         }
         if(gettype($value) === 'boolean')
         {
-            $value = $value ? 'True' : 'False';
+            $value = $value ? 1 : 0;
         }
 
         $seperator = $is_last ? '' : ',';
