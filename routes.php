@@ -89,6 +89,8 @@ post('/deactivate', function(){
   exit();
 });
 
+//---------- SEARCH ---------------
+
 get('/search', function(){
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_search.php"); 
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php"); 
@@ -96,7 +98,8 @@ get('/search', function(){
 });
 
 post('/search', function(){
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/apis/api_search.php");
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/bridges/bridge_user.php");
+  search_users();
   exit();
 });
 

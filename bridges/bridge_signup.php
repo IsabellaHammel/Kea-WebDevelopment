@@ -132,17 +132,16 @@ function createUser(){
         $verify_token
     );
     $user_repository->create_user($user);
-    send_verification_mail($verify_token);
+    send_verification_mail($user);
 }
 
-function send_verification_mail($token){
+function send_verification_mail(User $user){
     $mail_service = new MailService();
-    $user_email = $_POST['user_email'];
-    $fullname = "{$_POST['user_first_name']} {$_POST['user_last_name']}";
-    $verify_link = $_SERVER['SERVER_NAME'] . '/verify/' . $token;
-    $subject = "KEA test - Please verify your account";
+    $user_email = $user->get_email();
+    $verify_link = $_SERVER['SERVER_NAME'] . '/verify/' . $user->get_verify_token();
     
-    $message = " <div> <b>Hello {$fullname}</b> </div> 
+    $subject = "KEA test - Please verify your account";
+    $message = " <div> <b>Hello {$user->get_fullname()}</b> </div> 
     <div> Please verify your account by pressing this <a href='$verify_link'>link</a> </div>
     <div> Kind Regards </div>
     <div> - Kea Test </div>";

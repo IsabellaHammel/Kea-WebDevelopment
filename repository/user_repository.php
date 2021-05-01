@@ -73,6 +73,21 @@ class UserRepository extends BaseRepository
         return $user;
     }
 
+    public function search_user_by_name(string $search_value): array
+    {
+        $query = $this->prepare('SELECT * FROM users WHERE CONCAT( user_firstname,  " ", user_lastname ) LIKE :search_value LIMIT 20'); // concat saerch in both first and last name
+
+        $query->bindValue(':search_value', '%' . $search_value . '%'); // % means wildcard none, one or many - if not given exact match
+        $query->execute();
+        $user_rows = $query->fetchAll();
+
+        $users = array();
+        foreach($user_rows as $user_row){
+            array_push($users, $this->map_row_to_user($user_row));
+        }
+        return $users;
+    }
+
     public function update_user(User $user)
     {
         $sql_command = 'UPDATE users ';

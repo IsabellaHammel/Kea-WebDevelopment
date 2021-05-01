@@ -70,3 +70,39 @@ function logout()
     session_destroy(); 
     redirect("/login");
 }
+
+function search_users()
+{
+    // ensure_user_logged_in(); // TODO 
+
+    global $user_repository;
+
+    // Validate
+    if(!isset($_POST['search_for']) || 
+        strlen($_POST['search_for']) < 2 ||
+        strlen($_POST['search_for']) > 50)
+    {
+        http_response_code(400); // bad request
+        exit();
+    }
+    
+    try 
+    {
+        $users = $user_repository->search_user_by_name(trim($_POST['search_for']));
+    } catch (PDOException $exception) 
+    {
+        http_response_code(500); // internal server error
+    }
+    
+    $users_to_return = array();
+    foreach($users as $user)
+    {
+        $user_to_return = array(
+            "user_id" => $user->get_id(), 
+            "user_fullname" => $user->get_fullname()
+        );
+        array_push($users_to_return, $user_to_return);
+    }
+    header("Content-type:application/json");
+    echo json_encode($users_to_return);
+}
