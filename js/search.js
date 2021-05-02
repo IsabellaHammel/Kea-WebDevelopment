@@ -3,7 +3,7 @@ var search_timer // used to stop the search_timer
 function search() {
     if (search_timer) { clearTimeout(search_timer) }
     if (event.target.value.length >= 2) {
-        search_timer = setTimeout(async function() {
+        search_timer = setTimeout(async function() { // how long we wait for the reponse
 
             const users = await search_users()
 
@@ -11,7 +11,7 @@ function search() {
             document.querySelector("#search_results").innerHTML = ""
             users.forEach(user => {
                 let user_div = `
-                    <div class="search_result onclick="show_results()">
+                    <div class="search_result">
                         <a href="/users/${user.user_id}">${user.user_fullname}</a>
                     </div>`
                 document.querySelector("#search_results").insertAdjacentHTML('beforeend', user_div)
@@ -37,16 +37,6 @@ async function search_users() { // async denotes function is run in background p
     let users = await response.json()
     return users
 }
-
-function toggle_results() {
-    const value = document.getElementById("search_input").value
-    if (value.length > 2) {
-        show_results()
-        return
-    }
-    hide_results()
-}
-
 
 
 $(document).on("click", function(event) { // event (click) handler in jquery

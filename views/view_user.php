@@ -7,7 +7,7 @@ if(!isset($user_id)){
     header('Location: /search');
     exit();
 }
-if(!ctype_alnum($user_id)) 
+if(!ctype_alnum($user_id)) // check contains only letter or digits
 {
   header('Location: /search');
   exit();
