@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#search form {
+    width: 20%;
+    padding: 1rem;
+    text-decoration: none;
+}
+
+#search input {
+    width: 100%;
+}
+
+#search #search_results {
+    display: none;
+    width: 100%;
+    max-height: 50vh;
+    border: 1px solid black;
+    overflow-y: scroll;
+}
+
+#search .search_result a {
+    text-decoration: none;
+    color: black;
+}

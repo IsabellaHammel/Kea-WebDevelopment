@@ -1,11 +1,9 @@
 <?php
+require_once(__DIR__.'/../bridges/bridge_user.php'); // Requires user bridge to allow us to call functions from that php file
+try_start_session();
 
 // validate everything you can come up with
 if(!isset($user_id)){
-    header('Location: /search');
-    exit();
-}
-if(strlen($user_id) != 32){
     header('Location: /search');
     exit();
 }
@@ -15,27 +13,18 @@ if(!ctype_alnum($user_id))
   exit();
 }
 
-try{
-    $db_path = $_SERVER['DOCUMENT_ROOT'].'/';
-    $db = new PDO("sqlite:$db_path");
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-    // full text search
-    $q = $db->prepare(' SELECT user_firstname, user_lastname, user_phone, user_email 
-                        FROM users 
-                        WHERE user_uuid = :user_uuid 
-                        LIMIT 1');
-    $q->bindValue(':user_id', $user_id);
-    $q->execute();
-    $user = $q->fetch();
-    ?>
-    <div>
-      <div><?= $user['user_firstname'] ?></div>
-      <div><?= $user['user_lastname'] ?></div>
-      <div><?= $user['user_phone'] ?></div>
-      <div><?= $user['user_email'] ?></div>
-    </div>
-    <?php
-  }catch(PDOException $ex){
-    echo $ex;
-  }
+$user = get_user($user_id);
+
+if($user == null)
+{
+  header('Location: /search');
+  exit();
+}
+?>
+ <div class="user">
+    <div><b>Firstname:</b> <?= $user->get_firstname() ?></div>
+    <div><b>Lastname:</b> <?= $user->get_lastname() ?></div>
+    <div><b>Age:</b> <?= $user->get_age() ?></div>
+    <div><b>Phone:</b> <?= $user->get_phone() ?></div>
+    <div><b>Email:</b> <?= $user->get_email() ?></div>
+ </div>

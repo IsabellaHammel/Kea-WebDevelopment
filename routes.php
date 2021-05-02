@@ -79,8 +79,12 @@ get('/users', function (){
   exit();
 });
 
-get('/users/$user_uuid', function(){
+get('/users/:id', function($id){
+  $user_id = $id;
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php");
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_user.php"); 
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php");
+  exit();
 });
 
 post('/deactivate', function(){
@@ -92,6 +96,7 @@ post('/deactivate', function(){
 //---------- SEARCH ---------------
 
 get('/search', function(){
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php"); 
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_search.php"); 
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php"); 
   exit();
@@ -114,7 +119,9 @@ get('/verify/:token', function($token){
 //---------- DEFAULT---------------
 any('/404', 'error404');
 function error404(){
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php"); 
   echo 'Not found';
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php"); 
   exit();
 }
 

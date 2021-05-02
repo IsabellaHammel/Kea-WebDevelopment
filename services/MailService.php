@@ -3,9 +3,9 @@ use PHPMailer\PHPMailer\PHPMailer; // namespace of phpmailer. the namespace is o
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-require_once("{$_SERVER['DOCUMENT_ROOT']}/PHPMailer/src/PHPMailer.php");
-require_once("{$_SERVER['DOCUMENT_ROOT']}/PHPMailer/src/SMTP.php");
-require_once("{$_SERVER['DOCUMENT_ROOT']}/PHPMailer/src/Exception.php");
+require_once("{$_SERVER['DOCUMENT_ROOT']}/services/src/PHPMailer/PHPMailer.php");
+require_once("{$_SERVER['DOCUMENT_ROOT']}/services/src/PHPMailer/SMTP.php");
+require_once("{$_SERVER['DOCUMENT_ROOT']}/services/src/PHPMailer/Exception.php");
 
 
 class MailService 

@@ -10,39 +10,46 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= $page_title ?? 'Mandatory Project' ?></title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
   <nav>
     <ul>
     <?php
-    if(!isset($_SESSION['user_id'])){
-    ?>
+    if(!isset($_SESSION['user_id'])){ 
+    ?> <!-- Only shown when no session -->
         <li>
           <a href="/signup">
             Signup
           </a>
         </li> 
         <li>
-          <a href="/login"> <!-- Only shown when no session -->
+          <a href="/login"> 
             Login
           </a>
         </li>
     <?php
     } 
-    else {
-    ?>
+    else { 
+    ?> <!-- Only shown when session -->
         <li>
-          <a href="/admin">  <!-- TODO: Hide this if not logged in check session -->
+          <a href="/admin">  
             Admin
           </a>
         </li>
         <li>
-          <a href="/users">  <!-- TODO: Hide this if not logged in check session -->
+          <a href="/search">  
+            Search
+          </a>
+        </li>
+        <li>
+          <a href="/users">  
             Users
           </a>
         </li>  
         <li>
-          <a href="/logout"> <!-- Only shown when no session -->
+          <a href="/logout"> 
             Logout
           </a>
         </li>

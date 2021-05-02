@@ -52,6 +52,14 @@ function get_all_users(): array
     return $users;
 }
 
+function get_user(string $user_id): ?User
+{
+    global $user_repository;
+    ensure_user_logged_in();
+    $user = $user_repository->get_user($user_id);
+    return $user;
+}
+
 function deactivate_user()
 {
     global $user_repository;
@@ -73,7 +81,7 @@ function logout()
 
 function search_users()
 {
-    // ensure_user_logged_in(); // TODO 
+    ensure_user_logged_in();
 
     global $user_repository;
 
@@ -106,3 +114,4 @@ function search_users()
     header("Content-type:application/json");
     echo json_encode($users_to_return);
 }
+
