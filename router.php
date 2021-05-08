@@ -6,6 +6,7 @@ function get($route, $function_to_call){
 function post($route, $function_to_call){
   if( $_SERVER['REQUEST_METHOD'] == 'POST' ){ route($route, $function_to_call); }    
 }
+
 function delete($route, $function_to_call){
   if( $_SERVER['REQUEST_METHOD'] == 'DELETE' ){ route($route, $function_to_call); }    
 }

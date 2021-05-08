@@ -26,3 +26,16 @@
     text-decoration: none;
     color: black;
 }
+
+
+/* .container.user-update {
+    display: block;
+} */
+
+.hide {
+    display: none !important;
+}
+
+.show {
+    display: grid;
+}

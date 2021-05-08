@@ -31,6 +31,7 @@ post('/signup', function(){
 
 //---------- LOGIN ---------------
 get('/', function (){
+  authorize(is_home: true);
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php");
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_login.php");
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php");
@@ -38,6 +39,7 @@ get('/', function (){
 });
 
 get('/login', function (){
+  authorize(is_home: true);
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php");
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_login.php");
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php");
@@ -58,28 +60,41 @@ post('/login', function(){
 });
 
 get('/logout', function(){
+  authorize();
   require_once("{$_SERVER['DOCUMENT_ROOT']}/bridges/bridge_user.php");
   logout();
   exit();
 });
 
-//---------- USER DASHBOARD ---------------
-// Create routes
-get('/admin', function (){ 
+//---------- ADMIN DASHBOARD ---------------
+
+get('/admin', function (){
+  authorize();
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php");
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_admin.php");
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php");
   exit();
 });
 
-get('/users', function (){ 
+//---------- USER DASHBOARD ---------------
+
+get('/myprofile', function (){ 
+  authorize();
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php");
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_users.php");
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_myprofile.php");
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php");
   exit();
 });
 
+// get('/users', function (){ 
+//   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php");
+//   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_users.php");
+//   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php");
+//   exit();
+// });
+
 get('/users/:id', function($id){
+  authorize();
   $user_id = $id;
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php");
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_user.php"); 
@@ -88,14 +103,23 @@ get('/users/:id', function($id){
 });
 
 post('/deactivate', function(){
+  authorize();
   require_once("{$_SERVER['DOCUMENT_ROOT']}/bridges/bridge_user.php");
   deactivate_user();
+  exit();
+});
+
+post('/users/update', function(){
+  authorize();
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/apis/api_user.php");
+  update_user();
   exit();
 });
 
 //---------- SEARCH ---------------
 
 get('/search', function(){
+  authorize();
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php"); 
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_search.php"); 
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php"); 
@@ -103,7 +127,8 @@ get('/search', function(){
 });
 
 post('/search', function(){
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/bridges/bridge_user.php");
+  authorize_api();
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/apis/api_user.php");
   search_users();
   exit();
 });
@@ -124,4 +149,28 @@ function error404(){
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php"); 
   exit();
 }
+
+function authorize(bool $is_home = false){
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/bridges/bridge_user.php");
+  
+  if(is_user_logged_in() && $is_home){
+    header("Location: /myprofile"); // user already logged in
+    exit();
+  }
+
+  if(!is_user_logged_in() && !$is_home){
+    header("Location: /"); // avoid infinite redirect if home
+  }
+}
+
+function authorize_api(){
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/bridges/bridge_user.php");
+  
+  if(!is_user_logged_in()){
+    http_response_code(401); // unauthorized
+    exit();
+  }
+}
+
 ?>
+

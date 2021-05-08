@@ -15,6 +15,7 @@ function try_start_session(){
 function redirect($endpoint)
 {
     header("Location: $endpoint");
+    exit();
 }
 
 
@@ -32,19 +33,16 @@ function get_logged_in_user(): ?User
     return $user;
 }
 
-function ensure_user_logged_in()
+function is_user_logged_in(): bool
 {
     $logged_in_user = get_logged_in_user();
-    if($logged_in_user == null) 
-    {
-        redirect('/login');
-    }
+    $is_user_logged_in = $logged_in_user != null;
+    return $is_user_logged_in;
 }
 
 function get_all_users(): array
 {
     global $user_repository;
-    ensure_user_logged_in();
     $users = $user_repository->get_users();
     usort($users, function($user1, $user2){
         return $user1->get_age() > $user2->get_age();
@@ -55,7 +53,6 @@ function get_all_users(): array
 function get_user(string $user_id): ?User
 {
     global $user_repository;
-    ensure_user_logged_in();
     $user = $user_repository->get_user($user_id);
     return $user;
 }
@@ -63,7 +60,6 @@ function get_user(string $user_id): ?User
 function deactivate_user()
 {
     global $user_repository;
-    ensure_user_logged_in();
 
     $user = get_logged_in_user();
     $user->set_is_active(false);
@@ -79,39 +75,4 @@ function logout()
     redirect("/login");
 }
 
-function search_users()
-{
-    ensure_user_logged_in();
-
-    global $user_repository;
-
-    // Validate
-    if(!isset($_POST['search_for']) || 
-        strlen($_POST['search_for']) < 2 ||
-        strlen($_POST['search_for']) > 50)
-    {
-        http_response_code(400); // bad request
-        exit();
-    }
-    
-    try 
-    {
-        $users = $user_repository->search_user_by_name(trim($_POST['search_for']));
-    } catch (PDOException $exception) 
-    {
-        http_response_code(500); // internal server error
-    }
-    
-    $users_to_return = array();
-    foreach($users as $user)
-    {
-        $user_to_return = array(
-            "user_id" => $user->get_id(), 
-            "user_fullname" => $user->get_fullname()
-        );
-        array_push($users_to_return, $user_to_return);
-    }
-    header("Content-type:application/json");
-    echo json_encode($users_to_return);
-}
 
