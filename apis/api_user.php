@@ -76,7 +76,7 @@ function update_user()
         
         
         $user_repository = new UserRepository();
-        // $user_repository->update_user($user);    
+        $user_repository->update_user($user);    
 
         http_response_code(200); // OK
 

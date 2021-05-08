@@ -22,26 +22,26 @@ if($user != null){
     <button type="button" id="toggle_update_btn" class="toggle-update btn btn-info" onclick="toggle_update()">Update info</button>
 
     <div class="container user-update hide">
-      <form id="update-user" class="row form-floating">
+      <form id="update-user-form" class="row form-floating" onsubmit="return update_user()">
         <div class="mb-2">
           <label for="floatingFirstname">Firstname</label>
-          <input required type="text" name="user_first_name" id="floatingFirstname" class="form-control" value= <?= $user->get_firstname() ?>>
+          <input required type="text" name="user_first_name" id="floatingFirstname" class="form-control" value= "<?= $user->get_firstname() ?>">
         </div>
         <div class="mb-2">
           <label for="floatingLastname">Lastname</label>
-          <input required type="text" name="user_last_name" id="floatingLastname" class="form-control" value= <?= $user->get_lastname()?>>
+          <input required type="text" name="user_last_name" id="floatingLastname" class="form-control" value= "<?= $user->get_lastname()?>">
         </div>
         <div class="mb-2">
           <label for="floatingAge">Age</label>
-          <input required type="text" name="user_age" id="floatingAge" class="form-control" value=<?= $user->get_age() ?>>
+          <input required type="text" name="user_age" id="floatingAge" class="form-control" value="<?= $user->get_age() ?>">
         </div>
         <div class="mb-2">
           <label for="floatingPhone">Phone</label>
-          <input required type="text" name="user_phone" id="floatingPhone" class="form-control" value=<?= $user->get_phone() ?>>
+          <input required type="text" name="user_phone" id="floatingPhone" class="form-control" value="<?= $user->get_phone() ?>">
         </div>
         <div class="mb-2">
           <label for="floatingEmail">Email</label>
-          <input required type="email" name="user_email" id="floatingEmail" class="form-control" value=<?= $user->get_email() ?>>
+          <input required type="email" name="user_email" id="floatingEmail" class="form-control" value="<?= $user->get_email() ?>">
         </div>
         <div class="mb-2">
           <label for="floatingPassword">Password</label>
@@ -52,7 +52,7 @@ if($user != null){
           <input type="password" name="user_confirm_password" id="floatingConfirmPassword" class="form-control" placeholder="Confirm password">
         </div>
         <div class="mb-2">
-          <button type="button" class="btn btn-primary mb-3" onclick="update_user()">Update</button>
+          <button type="submit" class="btn btn-primary mb-3">Update</button>
         </div>
       </form>
     </div>   

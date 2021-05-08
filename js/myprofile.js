@@ -1,7 +1,14 @@
+$('#update-user-form').submit(function(e) {
+    e.preventDefault();
+});
+
 async function update_user() {
     // Verify confirm password are same
-    const formElement = document.querySelector("#update-user")
+    const formElement = document.querySelector("#update-user-form")
 
+    if (!isValidPassword()) {
+        return false
+    }
 
     // post to api to update user
     const url = "/users/update"
@@ -13,10 +20,10 @@ async function update_user() {
     const response = await fetch(url, request) // await fetch to finish
     if (!response.ok) {
         alert(`Unable to update user - response ${response.status} - ${response.statusText}`)
-    } else {
-        alert('User updated!')
+        return false
     }
-
+    alert('User updated!')
+    window.location.reload();
 }
 
 function toggle_update() {
@@ -30,4 +37,20 @@ function toggle_update() {
         update_element.add("hide")
         update_button.innerHTML = "Show Update Info"
     }
+}
+
+function isValidPassword() {
+    let password = document.getElementById("floatingPassword").value
+    let confirm_password = document.getElementById("floatingConfirmPassword").value
+
+    if (password.length < 8 || password.length > 50) {
+        alert("Password is invalid")
+        return false
+    }
+
+    if (password !== confirm_password) {
+        alert("Password does not match")
+        return false
+    }
+    return true
 }
