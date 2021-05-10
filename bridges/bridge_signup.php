@@ -129,7 +129,8 @@ function createUser(){
         $hash_password,
         null,
         false,
-        $verify_token
+        $verify_token,
+        false
     );
     $user_repository->create_user($user);
     send_verification_mail($user);
@@ -138,7 +139,7 @@ function createUser(){
 function send_verification_mail(User $user){
     $mail_service = new MailService();
     $user_email = $user->get_email();
-    $verify_link = $_SERVER['SERVER_NAME'] . '/verify/' . $user->get_verify_token();
+    $verify_link = 'http://' . $_SERVER['SERVER_NAME'] . '/verify/' . $user->get_verify_token();
     
     $subject = "KEA test - Please verify your account";
     $message = " <div> <b>Hello {$user->get_fullname()}</b> </div> 

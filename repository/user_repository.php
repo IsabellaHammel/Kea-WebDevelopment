@@ -25,7 +25,7 @@ class UserRepository extends BaseRepository
         return $users;
     }
 
-    public function get_user($id): User // returns some user obj
+    public function get_user($id): ?User // returns some user obj
     {
         $query = $this->prepare('SELECT * FROM users WHERE user_id = :id'); // inherited from Base/PDO
         $query->bindValue(':id', $id);
@@ -103,7 +103,8 @@ class UserRepository extends BaseRepository
         $sql_set = $this->add_query_set($sql_set,  'user_password', $user->get_password());
         $sql_set = $this->add_query_set($sql_set,  'user_is_active', $user->get_is_active());
         $sql_set = $this->add_query_set($sql_set,  'user_is_verified', $user->get_is_verified());
-        $sql_set = $this->add_query_set($sql_set,  'user_verify_token', $user->get_verify_token(), is_last: true);
+        $sql_set = $this->add_query_set($sql_set,  'user_verify_token', $user->get_verify_token());
+        $sql_set = $this->add_query_set($sql_set,  'user_is_admin', $user->get_is_admin(), is_last: true);
 
         
         $sql_query = $sql_command . $sql_set . $sql_condition;
@@ -112,8 +113,8 @@ class UserRepository extends BaseRepository
 
     public function create_user(User $user): int // returns user 
     {
-        $sql = "INSERT INTO users (user_firstname, user_lastname, user_age, user_phone, user_email, user_password, user_is_active, user_is_verified, user_verify_token)
-        VALUES ('{$user->get_firstname()}', '{$user->get_lastname()}', '{$user->get_age()}', '{$user->get_phone()}', '{$user->get_email()}', '{$user->get_password()}', true, '{$user->get_is_verified()}', '{$user->get_verify_token()}')";
+        $sql = "INSERT INTO users (user_firstname, user_lastname, user_age, user_phone, user_email, user_password, user_is_active, user_is_verified, user_verify_token, user_is_admin)
+        VALUES ('{$user->get_firstname()}', '{$user->get_lastname()}', '{$user->get_age()}', '{$user->get_phone()}', '{$user->get_email()}', '{$user->get_password()}', true, '{$user->get_is_verified()}', '{$user->get_verify_token()}', '{$user->get_is_admin()}')";
 
         $db_response = $this->query($sql);
         $is_created = $db_response  == TRUE; // try creates a user in DB and returns if created
@@ -154,7 +155,8 @@ class UserRepository extends BaseRepository
             $row->user_password,
             $row->user_is_active == '1',
             $row->user_is_verified,
-            $row->user_verify_token
+            $row->user_verify_token,
+            $row->user_is_admin
         );
     }
     

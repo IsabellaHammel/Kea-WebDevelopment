@@ -13,6 +13,7 @@ class User
     private ?bool $_is_active; // ? means nullable thus is active can be true, false or null
     private bool $_is_verified;
     private string $_verify_token;
+    private bool $_is_admin;
 
     public function __construct(
         $id, 
@@ -24,7 +25,8 @@ class User
         $password, 
         $is_active,
         $is_verified,
-        $verify_token
+        $verify_token,
+        $is_admin
     )
     {
         $this->_id = $id;
@@ -37,6 +39,7 @@ class User
         $this->_is_active = $is_active;
         $this->_is_verified = $is_verified;
         $this->_verify_token = $verify_token;
+        $this->_is_admin = $is_admin;
 
     }
 
@@ -138,6 +141,16 @@ class User
     public function set_verify_token(string $verify_token)
     {
         $this->_verify_token = $verify_token;
+    }
+
+    public function get_is_admin(): bool
+    {
+        return $this->_is_admin;
+    }
+
+    public function set_is_admin(bool $is_admin)
+    {
+        $this->_is_admin = $is_admin;
     }
 
 

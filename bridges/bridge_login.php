@@ -44,6 +44,25 @@ function redirect(string $endpoint)
 }
 
 
+
+function send_forgot_mail(User $user){
+  $mail_service = new MailService();
+  $user_email = $user->get_email();
+  $verify_link = $_SERVER['SERVER_NAME'] . '/verify/' . $user->get_verify_token(); // TODO Replace get_verify_token() with something else
+  
+  $subject = "KEA test - Please reset your password";
+  $message = " <div> <b>Hello {$user->get_fullname()}</b> </div> 
+  <div> Please reset your password by pressing this <a href='$verify_link'>link</a> </div>
+  <div> If you did not request to change your password, please ignore this email </div>
+  <div> Kind Regards </div>
+  <div> - Kea Test </div>"; // TODO change $verify_link
+
+  $mail_service->sendMail($message, $subject, $user_email);
+}
+
+
+
+
 // ------------------- Main flow -------------------------------
 
 $error = try_login();

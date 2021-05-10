@@ -1,6 +1,8 @@
 <?php
 require_once(__DIR__.'/../repository/user_repository.php');
 require_once(__DIR__.'/../bridges/bridge_user.php');
+require_once(__DIR__.'/../services/MailService.php');
+
 
 function search_users()
 {
@@ -36,6 +38,65 @@ function search_users()
     echo json_encode($users_to_return);
 }
 
+function deactivate_user_by_admin(int $id)
+{
+    try{
+        $user_repository = new UserRepository();
+        $mail_service = new MailService();
+
+        $user = $user_repository->get_user($id);
+
+        if($user == null){
+            http_response_code(404);
+            exit();
+        }
+        $user->set_is_active(false);
+        $user_repository->update_user($user);
+        
+        $user_email = $user->get_email();
+        $subject = "KEA test - Your account has been deactivated";
+        $message = " <div> <b>Hello {$user->get_fullname()}</b> </div> 
+        <div> An admin has deactivated your account </div>
+        <div> Kind Regards </div>
+        <div> - Kea Test </div>";
+        $mail_service->sendMail($message, $subject, $user_email);
+
+        http_response_code(200);
+    }
+    catch(Exception $e){
+        http_response_code(500);
+    }
+}
+
+function activate_user_by_admin(int $id)
+{
+    try{
+        $user_repository = new UserRepository();
+        $mail_service = new MailService();
+
+        $user = $user_repository->get_user($id);
+
+        if($user == null){
+            http_response_code(404);
+            exit();
+        }
+        $user->set_is_active(true);
+        $user_repository->update_user($user);
+
+        $user_email = $user->get_email();
+        $subject = "KEA test - Your account has been re-activated";
+        $message = " <div> <b>Hello {$user->get_fullname()}</b> </div> 
+        <div> An admin has re-activated your account </div>
+        <div> Kind Regards </div>
+        <div> - Kea Test </div>";
+        $mail_service->sendMail($message, $subject, $user_email);
+
+        http_response_code(200);
+    }
+    catch(Exception $e){
+        http_response_code(500);
+    }
+}
 
 
 function update_user()

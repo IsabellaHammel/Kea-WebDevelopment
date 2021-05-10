@@ -33,22 +33,24 @@
     <?php
     } 
     else { 
+      $logged_in_user = get_logged_in_user();
     ?> <!-- Only shown when session -->
+    <?php
+    if($logged_in_user->get_is_admin()){
+    ?>
         <li class="nav-item">
           <a href="/admin">  
             Admin
           </a>
         </li>
+    <?php
+    }
+    ?>
         <li class="nav-item">
           <a href="/search">  
             Search
           </a>
-        </li>
-        <li class="nav-item">
-          <a href="/users">  
-            Users
-          </a>
-        </li>  
+        </li> 
         <li class="nav-item">
           <a href="/logout"> 
             Logout

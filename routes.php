@@ -69,10 +69,24 @@ get('/logout', function(){
 //---------- ADMIN DASHBOARD ---------------
 
 get('/admin', function (){
-  authorize();
+  authorize(is_require_admin:true);
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php");
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_admin.php");
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php");
+  exit();
+});
+
+post('/users/:id/deactivate', function ($id){
+  authorize(is_require_admin:true);
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/apis/api_user.php");
+  deactivate_user_by_admin($id);
+  exit();
+});
+
+post('/users/:id/activate', function ($id){
+  authorize(is_require_admin:true);
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/apis/api_user.php");
+  activate_user_by_admin($id);
   exit();
 });
 
@@ -85,13 +99,6 @@ get('/myprofile', function (){
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php");
   exit();
 });
-
-// get('/users', function (){ 
-//   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php");
-//   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_users.php");
-//   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php");
-//   exit();
-// });
 
 get('/users/:id', function($id){
   authorize();
@@ -150,23 +157,23 @@ function error404(){
   exit();
 }
 
-function authorize(bool $is_home = false){
+function authorize(bool $is_home = false, bool $is_require_admin = false){
   require_once("{$_SERVER['DOCUMENT_ROOT']}/bridges/bridge_user.php");
   
-  if(is_user_logged_in() && $is_home){
+  if(is_user_logged_in($is_require_admin) && $is_home){
     header("Location: /myprofile"); // user already logged in
     exit();
   }
 
-  if(!is_user_logged_in() && !$is_home){
+  if(!is_user_logged_in($is_require_admin) && !$is_home){
     header("Location: /"); // avoid infinite redirect if home
   }
 }
 
-function authorize_api(){
+function authorize_api(bool $is_require_admin = false){
   require_once("{$_SERVER['DOCUMENT_ROOT']}/bridges/bridge_user.php");
   
-  if(!is_user_logged_in()){
+  if(!is_user_logged_in($is_require_admin)){
     http_response_code(401); // unauthorized
     exit();
   }
