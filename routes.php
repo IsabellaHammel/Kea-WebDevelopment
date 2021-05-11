@@ -123,6 +123,29 @@ post('/users/update', function(){
   exit();
 });
 
+//--------- FORGOT / RESTORE PASSWORD ----------
+post('/forgotpassword', function(){
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/bridges/bridge_forgot_password.php");
+  create_forgot_password();
+  exit();
+});
+
+get('/forgotpassword', function(){
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php"); 
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_forgot_password.php"); 
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php"); 
+  exit();
+});
+
+get('/forgotpassword/message/:message', function ($message){
+  $display_message = $message;
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php");
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_forgot_password.php"); 
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php");
+  exit();
+});
+
+
 //---------- SEARCH ---------------
 
 get('/search', function(){

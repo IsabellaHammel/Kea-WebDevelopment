@@ -1,7 +1,6 @@
 <?php
 require_once(__DIR__.'/../repository/user_repository.php');
 require_once(__DIR__.'/../repository/user.php');
-require_once(__DIR__.'/../repository/forgot_password_repository.php'); 
 
 
 global $user_repository;  // Sets user repository globally so it can be used in functions 
@@ -44,28 +43,6 @@ function redirect(string $endpoint)
   header("Location: $endpoint"); 
   exit();
 }
-
-
-
-function send_mail_forgot_password(User $user){ // TODO CHANGE
-  $forgot_password = new ForgotPassword();
-  $forgot_password->create_forgot_password();
-
-  $mail_service = new MailService();
-  $user_email = $user->get_email();
-  $verify_link = $_SERVER['SERVER_NAME'] . '/verify/' . $user->get_verify_token(); // TODO Replace get_verify_token() with something else
-  
-  $subject = "KEA test - Please reset your password";
-  $message = " <div> <b>Hello {$user->get_fullname()}</b> </div> 
-  <div> Please reset your password by pressing this <a href='$verify_link'>link</a> </div>
-  <div> If you did not request to change your password, please ignore this email </div>
-  <div> Kind Regards </div>
-  <div> - Kea Test </div>"; // TODO change $verify_link
-
-  $mail_service->sendMail($message, $subject, $user_email);
-}
-
-
 
 
 // ------------------- Main flow -------------------------------

@@ -44,6 +44,11 @@ class ForgotPassword
         return $this->_created_on;
     }
 
+    public function get_created_on_str(): string
+    {
+        return $this->_created_on->format("Y-m-d H:i:s");
+    }
+
     public function get_is_active(): ?bool
     {
         return $this->_is_active;
