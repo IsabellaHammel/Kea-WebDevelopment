@@ -9,7 +9,7 @@ class ForgotPasswordRepository extends BaseRepository
         parent::__construct();
     }
 
-    public function get_forgot_passord_by_token(string $token): ?ForgotPassword
+    public function get_forgot_password_by_token(string $token): ?ForgotPassword
     {
         return null; // TODO
     }
@@ -24,7 +24,7 @@ class ForgotPasswordRepository extends BaseRepository
         
         if($is_created)
         {
-            $created_entity = $this->get_forgot_passord_by_token($forgot_password->get_token());
+            $created_entity = $this->get_forgot_password_by_token($forgot_password->get_token());
             return $created_entity->get_id();
         }
 

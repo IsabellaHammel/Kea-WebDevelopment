@@ -1,6 +1,8 @@
 <?php
 require_once(__DIR__.'/../repository/user_repository.php');
 require_once(__DIR__.'/../repository/user.php');
+require_once(__DIR__.'/../repository/forgot_password_repository.php'); 
+
 
 global $user_repository;  // Sets user repository globally so it can be used in functions 
 $user_repository = new UserRepository();  // Creates a new user_repository object to used
@@ -45,7 +47,10 @@ function redirect(string $endpoint)
 
 
 
-function send_forgot_mail(User $user){
+function send_mail_forgot_password(User $user){ // TODO CHANGE
+  $forgot_password = new ForgotPassword();
+  $forgot_password->create_forgot_password();
+
   $mail_service = new MailService();
   $user_email = $user->get_email();
   $verify_link = $_SERVER['SERVER_NAME'] . '/verify/' . $user->get_verify_token(); // TODO Replace get_verify_token() with something else

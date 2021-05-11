@@ -14,7 +14,6 @@
             <input name="user_last_name" type="text" placeholder="last name">
             <br><br>
             <input name="user_age" type="text" placeholder="age">
-            <!-- <input id="age" onclick="clear_error" type="text" placeholder="age" data-input-type="str"/"int" data-min="XX" data-max="XX"-->
             <br><br>
             <input name="user_phone"  type="text" placeholder="phone">
             <br><br>

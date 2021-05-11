@@ -15,18 +15,18 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body class="container">
-  <nav class="navbar">
-    <ul>
+  <nav class="navbar bg-dark navbar-dark navbar-expand-sm text-center px-3">
+    <ul class="navbar-nav w-100">
     <?php
     if(!isset($_SESSION['user_id'])){ 
     ?> <!-- Only shown when no session -->
         <li class="nav-item">
-          <a href="/signup">
+          <a href="/signup" class="nav-item nav-link">
             Signup
           </a>
         </li> 
         <li class="nav-item">
-          <a href="/login"> 
+          <a href="/login" class="nav-item nav-link"> 
             Login
           </a>
         </li>
@@ -39,7 +39,7 @@
     if($logged_in_user->get_is_admin()){
     ?>
         <li class="nav-item">
-          <a href="/admin">  
+          <a href="/admin" class="nav-item nav-link">  
             Admin
           </a>
         </li>
@@ -47,12 +47,12 @@
     }
     ?>
         <li class="nav-item">
-          <a href="/search">  
+          <a href="/search" class="nav-item nav-link">  
             Search
           </a>
         </li> 
         <li class="nav-item">
-          <a href="/logout"> 
+          <a href="/logout" class="nav-item nav-link"> 
             Logout
           </a>
         </li>
