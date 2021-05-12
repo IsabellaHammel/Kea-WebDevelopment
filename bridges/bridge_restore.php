@@ -27,33 +27,34 @@ TODO
 When restored password redirect to login
 */
 
-function check_restore_link_active(){
+function check_restore_link_active($token): bool 
+{
   $forgot_password_repository = new ForgotPasswordRepository();
-  $user_repository = new UserRepository();
 
-  $email = $_POST['user_email'];
-  $user = $user_repository->get_user_by_email($email);
   $forgot_password = $forgot_password_repository->get_by_token($token);
   
-  $restore_password = new ForgotPassword(
-    id: null,
-    user_id: $user->get_id(), 
-    token: $token,
-    created_on: new DateTime("now", new DateTimeZone("UTC")),
-    is_active: true
-  );
-  
-  if($token == $active)
+  if($forgot_password == null)
   {
-    $restore_password;
+    $msg = "Invalid link";
+    redirect("/restore/error/$msg");
   }
 
-  if($created_on > strtotime("+10 minutes"))
+  $minutes_to_add = 10;
+  $expire_date = (clone $forgot_password->get_created_on()) -> add(new DateInterval('PT' . $minutes_to_add . 'M')); // https://stackoverflow.com/questions/8169139/adding-minutes-to-date-time-in-php
+  $date_now = new DateTime("now", new DateTimeZone("UTC"));
+  
+  if($date_now > $expire_date )
   {
-    $restore_password(is_active) == false;
-    redirect("/login");
+    $forgot_password == false;
+    $forgot_password_repository($forgotpwd_is_active);
+    $msg = "Link has expired";
+    redirect("/restore/error/$msg");
+    // set forgot password isactive to false
+    // update forgotpassword in repo
+    // redirect to restore/error page showing link has expired
   }
-  redirect("/login");
+
+  return true;
 }
 
 function restore_password(){
