@@ -4,6 +4,8 @@ require_once(__DIR__.'/../repository/user.php');
 require_once(__DIR__.'/../repository/forgot_password_repository.php'); 
 require_once(__DIR__.'/../repository/forgot_password.php');
 require_once(__DIR__.'/../services/MailService.php');
+require_once(__DIR__.'/../utilities/utilities.php');
+
 
 function create_forgot_password(){
     $user_repository = new UserRepository();
@@ -53,12 +55,6 @@ function send_mail_forgot_password(User $user, ForgotPassword $forgot_password){
   
     $mail_service->sendMail($message, $subject, $user_email);
   }
-
-function redirect(string $endpoint)
-{
-  header("Location: $endpoint"); 
-  exit();
-}
 
 function alert(string $message){
     echo "<script type='text/javascript'>alert('$message');</script>";

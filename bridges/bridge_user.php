@@ -1,6 +1,8 @@
 <?php
 require_once(__DIR__.'/../repository/user_repository.php');
 require_once(__DIR__.'/../repository/user.php');
+require_once(__DIR__.'/../utilities/utilities.php');
+
 
 global $user_repository; // Exposes user repository globally to be used in functions
 $user_repository = new UserRepository();
@@ -10,12 +12,6 @@ function try_start_session(){
     { 
         session_start(); 
     } 
-}
-
-function redirect($endpoint)
-{
-    header("Location: $endpoint");
-    exit();
 }
 
 

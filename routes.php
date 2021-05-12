@@ -146,14 +146,30 @@ get('/forgotpassword/message/:message', function ($message){
 });
 
 get('/restore/:token', function ($token){
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/bridges/bridge_restore.php"); 
+  
   $restore_token = $token;
-  if(check_restore_link_active($restore_token))
-  {
-    require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php");
-    require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_restore_password.php"); 
-    require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php");
-    exit();
-  }
+  check_restore_link_active($restore_token);
+
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php");
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_restore_password.php"); 
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php");
+  exit();
+});
+
+get('/restore/error/:message', function ($message){
+  $display_message = $message;
+  
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php");
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_restore_password_error.php"); 
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php");
+  exit();
+});
+
+post('/restore', function (){  
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/apis/api_restore.php");
+  restore_password();
+  exit();
 });
 
 

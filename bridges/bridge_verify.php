@@ -2,6 +2,8 @@
 require_once(__DIR__.'/../repository/user_repository.php');
 require_once(__DIR__.'/../repository/user.php');
 require_once(__DIR__.'/../services/MailService.php');
+require_once(__DIR__.'/../utilities/utilities.php');
+
 
 function verify_user($token){
     $user_repository = new UserRepository();
@@ -37,10 +39,4 @@ function send_welcome_mail(User $user)
     <div> - Kea Test </div>";
 
     $mail_service->sendMail($message, $subject, $user_email);
-}
-
-function redirect(string $endpoint)
-{
-  header("Location: $endpoint"); 
-  exit();
 }

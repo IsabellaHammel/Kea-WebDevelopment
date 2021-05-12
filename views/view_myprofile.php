@@ -22,7 +22,7 @@ if($user != null){
     <button type="button" id="toggle_update_btn" class="toggle-update btn btn-info" onclick="toggle_update()">Update info</button>
 
     <div class="container user-update hide">
-      <form id="update-user-form" class="row form-floating" onsubmit="return update_user()">
+      <form id="update-user-form" class="row form-floating" onsubmit="return update_user();  return false;">
         <div class="mb-2">
           <label for="floatingFirstname">Firstname</label>
           <input required type="text" name="user_first_name" id="floatingFirstname" class="form-control" value= "<?= $user->get_firstname() ?>">

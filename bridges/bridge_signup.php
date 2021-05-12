@@ -2,6 +2,8 @@
 require_once(__DIR__.'/../repository/user_repository.php');
 require_once(__DIR__.'/../repository/user.php');
 require_once(__DIR__.'/../services/MailService.php');
+require_once(__DIR__.'/../utilities/utilities.php');
+
 
 global $user_repository;
 global $error; // Needed to access error on line 100
@@ -106,11 +108,6 @@ function isLengthValid($input, $min, $max){
 
 function showErrorMessage($error_message){
     redirect("/signup/error/$error_message");
-}
-
-function redirect($endpoint){
-    header('Location: ' . $endpoint);
-    exit();
 }
 
 function createUser(){

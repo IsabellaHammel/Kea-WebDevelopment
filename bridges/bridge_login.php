@@ -1,6 +1,7 @@
 <?php
 require_once(__DIR__.'/../repository/user_repository.php');
 require_once(__DIR__.'/../repository/user.php');
+require_once(__DIR__.'/../utilities/utilities.php');
 
 
 global $user_repository;  // Sets user repository globally so it can be used in functions 
@@ -37,12 +38,6 @@ function try_login(): string
   return ""; // Return empty error message
 }
 
-// redirect function
-function redirect(string $endpoint)
-{
-  header("Location: $endpoint"); 
-  exit();
-}
 
 
 // ------------------- Main flow -------------------------------
