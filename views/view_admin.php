@@ -83,14 +83,14 @@ foreach($users as $user){ // sort by age
   <?php
   if($user->get_is_active()){
   ?>
-  <form class="pt-2" onsubmit="return false"> <!-- TODO CHECK that function only deletes chosen user id, and not all or admin -->
+  <form class="pt-2" onsubmit="return false"> 
     <button type="submit" onclick="deactivate_user(<?= $user->get_id() ?>)" class="btn btn-danger">Deactivate user account</button> 
   </form>
   <?php
   }
   else{
   ?>
-  <form class="pt-2" onsubmit="return false"> <!-- TODO CHECK that function only deletes chosen user id, and not all or admin -->
+  <form class="pt-2" onsubmit="return false">
     <button type="submit" onclick="activate_user(<?= $user->get_id() ?>)" class="btn btn-success">Activate user account</button> 
   </form>
   <?php
