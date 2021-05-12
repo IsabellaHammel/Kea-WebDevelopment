@@ -106,7 +106,7 @@ function update_user()
         $user = get_logged_in_user();
         
         // ONLY UPDATE IF NEW VALUE GIVEN
-        if($_POST['user_password']) { // VERIFY IF WORK
+        if($_POST['user_password']) { 
             $hash_password = password_hash($_POST['user_password'], PASSWORD_DEFAULT);
             $user->set_password($hash_password);
         }

@@ -145,6 +145,15 @@ get('/forgotpassword/message/:message', function ($message){
   exit();
 });
 
+get('/restore/:token', function ($token){
+  $restore_token = $token;
+  send_mail_forgot_password($token);
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php");
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_forgot_password.php"); 
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php");
+  exit();
+});
+
 
 //---------- SEARCH ---------------
 
