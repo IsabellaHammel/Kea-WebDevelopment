@@ -76,14 +76,14 @@ get('/admin', function (){
   exit();
 });
 
-post('/users/:id/deactivate', function ($id){
+post('/api/users/:id/deactivate', function ($id){
   authorize(is_require_admin:true);
   require_once("{$_SERVER['DOCUMENT_ROOT']}/apis/api_user.php");
   deactivate_user_by_admin($id);
   exit();
 });
 
-post('/users/:id/activate', function ($id){
+post('/api/users/:id/activate', function ($id){
   authorize(is_require_admin:true);
   require_once("{$_SERVER['DOCUMENT_ROOT']}/apis/api_user.php");
   activate_user_by_admin($id);
@@ -166,9 +166,32 @@ get('/restore/error/:message', function ($message){
   exit();
 });
 
-post('/restore', function (){  
+post('/api/restore', function (){  
   require_once("{$_SERVER['DOCUMENT_ROOT']}/apis/api_restore.php");
   restore_password();
+  exit();
+});
+
+//---------- POSTS ---------------
+
+get('/api/posts', function (){
+  authorize_api();
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/apis/api_post.php");
+  get_posts();
+  exit();
+});
+
+post('/api/posts/:post_id/delete', function (string $post_id){ 
+  authorize_api();
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/apis/api_post.php");
+  delete_post($post_id);
+  exit();
+});
+
+post('/api/posts', function (){ 
+  authorize_api();
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/apis/api_post.php");
+  create_post();
   exit();
 });
 
@@ -183,7 +206,7 @@ get('/search', function(){
   exit();
 });
 
-post('/search', function(){
+get('/api/users', function(){
   authorize_api();
   require_once("{$_SERVER['DOCUMENT_ROOT']}/apis/api_user.php");
   search_users();

@@ -1,6 +1,4 @@
 <?php
-// TODO: validate user_email
-// TODO: validate user_password
 require_once(__DIR__.'/../db.php');
 
 try{

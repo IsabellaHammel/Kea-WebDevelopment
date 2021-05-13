@@ -8,7 +8,7 @@ async function update_user_password() {
     }
 
     // post to api to update user
-    const url = "/restore"
+    const url = "/api/restore"
     const formData = new FormData(formElement)
     formData.append("restore_token", token)
 

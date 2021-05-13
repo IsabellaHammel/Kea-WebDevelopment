@@ -13,7 +13,7 @@
             <br><br>
             <input name="user_last_name" type="text" placeholder="last name">
             <br><br>
-            <input name="user_age" type="text" placeholder="age">
+            <input name="user_age" type="date" value="2000-01-01" min="1900-01-01">
             <br><br>
             <input name="user_phone"  type="text" placeholder="phone">
             <br><br>

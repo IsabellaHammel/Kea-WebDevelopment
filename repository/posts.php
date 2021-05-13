@@ -5,20 +5,20 @@ class Post
 {
     private ?int $_post_id;
     private int $_post_user_id;
-    private string $_post_token;
     private DateTime $_post_created_on;
+    private string $_post_content;
 
     public function __construct(
-        ?int $post_id, 
+        ?int $post_id = null, 
         int $post_user_id,
-        string $post_token,
         DateTime $post_created_on,
+        string $post_content
     )
     {
         $this->_post_id = $post_id;
         $this->_post_user_id = $post_user_id;
-        $this->_post_token = $post_token;
         $this->_post_created_on = $post_created_on;
+        $this->_post_content = $post_content;
     }
 
     public function get_post_id(): int
@@ -31,11 +31,6 @@ class Post
         return $this->_post_user_id;
     }
 
-    public function get_post_token(): string
-    {
-        return $this->_post_token;
-    }
-
     public function get_post_created_on(): DateTime
     {
         return $this->_post_created_on;
@@ -44,5 +39,10 @@ class Post
     public function get_post_created_on_str(): string
     {
         return $this->_post_created_on->format("Y-m-d H:i:s");
+    }
+
+    public function get_post_content(): string
+    {
+        return $this->_post_content;
     }
 }

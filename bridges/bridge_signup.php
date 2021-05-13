@@ -5,10 +5,8 @@ require_once(__DIR__.'/../services/MailService.php');
 require_once(__DIR__.'/../utilities/utilities.php');
 
 
-global $user_repository;
 global $error; // Needed to access error on line 100
 
-$user_repository = new UserRepository();
 $error = null;
 
 function appendError($message){
@@ -35,14 +33,6 @@ function validateName(){
     }
     if(!$isLastNameValid){
         appendError("Last name must be between $minLength and $maxLength");
-    }
-}
-
-function validateAge(){
-    $age = $_POST['user_age'];
-
-    if($age < 1){
-        appendError("Age must be greater than zero");
     }
 }
 
@@ -73,7 +63,7 @@ function validateEmail(){
 }
 
 function validateUserNotExist(){
-    global $user_repository;
+    $user_repository = new UserRepository();
     $email = $_POST['user_email'];
     $user = $user_repository->get_user_by_email($email);
     $is_exists = $user != null;
@@ -111,23 +101,20 @@ function showErrorMessage($error_message){
 }
 
 function createUser(){
-    global $user_repository;
-    $hash_password = password_hash($_POST['user_password'], PASSWORD_DEFAULT);
+    $user_repository = new UserRepository();
 
+    $hash_password = password_hash($_POST['user_password'], PASSWORD_DEFAULT);
     $verify_token = uniqid();
+    $age_date = new DateTime($_POST['user_age']);
 
     $user = new User(
-        null,
-        $_POST['user_first_name'],
-        $_POST['user_last_name'],
-        $_POST['user_age'],
-        $_POST['user_phone'],
-        $_POST['user_email'],
-        $hash_password,
-        null,
-        false,
-        $verify_token,
-        false
+        firstname: $_POST['user_first_name'],
+        lastname: $_POST['user_last_name'],
+        age: new DateTime($_POST['user_age']),
+        phone: $_POST['user_phone'],
+        email: $_POST['user_email'],
+        password: $hash_password,
+        verify_token: $verify_token
     );
     $user_repository->create_user($user);
     send_verification_mail($user);
@@ -151,8 +138,6 @@ function send_verification_mail(User $user){
 
 validateName();
 
-validateAge();
-
 validatePhone();
 
 validateEmail();
@@ -161,15 +146,18 @@ validateUserNotExist();
 
 validatePassword();
 
-if($error != null){
+if($error != null)
+{
     showErrorMessage($error);
 }
-else {
-    try {
-
+else 
+{
+    try 
+    {
         createUser();  // Try create a user if no errors
-
-    } catch (Exception $e) {
+    } 
+    catch (Exception $e) 
+    {
         showErrorMessage($e->getMessage()); // Failed to create user
     }
 }

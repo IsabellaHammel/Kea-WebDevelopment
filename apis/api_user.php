@@ -7,11 +7,12 @@ require_once(__DIR__.'/../services/MailService.php');
 function search_users()
 {
     $user_repository = new UserRepository();
+    $search_value = $_GET['name'];
 
     // Validate
-    if(!isset($_POST['search_for']) || 
-        strlen($_POST['search_for']) < 2 ||
-        strlen($_POST['search_for']) > 50)
+    if(!isset($search_value) || 
+        strlen($search_value) < 2 ||
+        strlen($search_value) > 50)
     {
         http_response_code(400); // bad request
         exit();
@@ -19,7 +20,7 @@ function search_users()
     
     try 
     {
-        $users = $user_repository->search_user_by_name(trim($_POST['search_for']));
+        $users = $user_repository->search_user_by_name(trim($search_value));
     } catch (PDOException $exception) 
     {
         http_response_code(500); // internal server error

@@ -6,7 +6,7 @@ class User
     private ?int $_id;
     private string $_firstname;
     private string $_lastname;
-    private int $_age;
+    private DateTime $_age;
     private string $_phone;
     private string $_email;
     private string $_password;
@@ -16,17 +16,17 @@ class User
     private bool $_is_admin;
 
     public function __construct(
-        $id, 
+        $id = null, 
         $firstname, 
         $lastname, 
         $age, 
         $phone, 
         $email, 
         $password, 
-        $is_active,
-        $is_verified,
+        $is_active = null,
+        $is_verified = false,
         $verify_token,
-        $is_admin
+        $is_admin = false
     )
     {
         $this->_id = $id;
@@ -68,12 +68,18 @@ class User
         return $this->_firstname . ' ' . $this->_lastname;
     }
 
-    public function get_age(): string
+    public function get_age(): DateTime
     {
         return $this->_age;
     }
 
-    public function set_age(string $age)
+    public function get_age_str(): string
+    {
+        return $this->_age->format("Y-m-d");
+    }
+
+
+    public function set_age(DateTime  $age)
     {
         $this->_age = $age;
     }

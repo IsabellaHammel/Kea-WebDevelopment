@@ -1,15 +1,13 @@
 <?php
-// Calls bridge admin bridge to get users - consider
-// Show all users in table (firstname, lastname, email, phone, is_active)
-
 require_once(__DIR__.'/../bridges/bridge_user.php'); // Requires user bridge to allow us to call functions from that php file
-
-
 $user = get_logged_in_user(); // call function from bridge_user.php exposed by require_once
 ?>
+
 <?php
 if($user != null){
 ?>
+<p id="user_id" style="display: none;" value="<?= $user->get_id()?>"></p> 
+
   <div class='container user-container'>
     <div class="container user-details">
       <div><b>Firstname:</b> <?= $user->get_firstname() ?></div>
@@ -61,7 +59,23 @@ if($user != null){
         <button type="submit" class="btn btn-danger">Deactivate Account</button> 
     </form>
   </div>
+  
+  <div class="container" id="user_posts_section">
+  <h2>Your Posts</h2>
+    <div class="container" id="posts">
+      <!--Javascript populates this section-->
+    </div>
+    <form id="create-post-form" class="row form-floating" onsubmit="create_post(); return false;">
+      <!-- TODO CREATE POST FORM TEXT AREA TO WRITE NEW POSTS -->
+      <textarea name="post_content" id="post_content_text_area" cols="30" rows="10"></textarea>
+      <button type="submit" class="btn btn-success">Create post</button>
+    </form>
+    
+  </div>
+
   <script src="./js/myprofile.js"></script> 
 <?php
+}else{
+  header("Location: /");
 }
 ?>

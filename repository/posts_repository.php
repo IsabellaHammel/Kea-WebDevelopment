@@ -9,14 +9,14 @@ class PostRepository extends BaseRepository
         parent::__construct();
     }
 
-    public function get_post_by_token(string $token): ?Post
+    public function get_post(string $post_id): ?Post
     {
-        $query = $this->prepare('SELECT * FROM posts WHERE post_token = :token');
-        $query->bindValue(':token', $token);
+        $query = $this->prepare('SELECT * FROM posts WHERE post_id = :post_id');
+        $query->bindValue(':post_id', $post_id);
         $query->execute();
         $row = $query->fetch();
-
-        if($row == FALSE)
+        
+        if($row == false)
         {
             return null;
         }
@@ -25,21 +25,44 @@ class PostRepository extends BaseRepository
         return $post;
     }
 
+
+    public function get_posts_by_user_id(string $user_id): array
+    {
+        $query = $this->prepare('SELECT * FROM posts WHERE post_user_id = :user_id');
+        $query->bindValue(':user_id', $user_id);
+        $query->execute();
+        $rows = $query->fetchAll();
+
+        $posts = array();
+
+        foreach($rows as $row){
+            $post = $this->map_row_to_posts($row);
+            array_push($posts, $post);
+        }
+        return $posts;
+    }
+
     public function create(Post $post): int
     {
-        $sql = "INSERT INTO posts (post_user_id, post_token, post_created_on)
-        VALUES ('{$post->get_post_user_id()}', '{$post->get_post_token()}', '{$post->get_post_created_on_str()}')";
+        $sql = "INSERT INTO posts (post_user_id, post_created_on, post_content)
+        VALUES ('{$post->get_post_user_id()}', '{$post->get_post_created_on_str()}', '{$post->get_post_content()}')";
 
         $db_response = $this->query($sql);
         $is_created = $db_response  == TRUE;
-        
+
         if($is_created)
         {
-            $created_entity = $this->get_post_by_token($post->get_post_token());
-            return $created_entity->get_post_id();
+            return $this->lastInsertId();
         }
 
         throw new Exception('Unable to create post');
+    }
+
+    public function delete($post_id)
+    {
+        $query = $this->prepare("DELETE FROM posts WHERE post_id = :post_id");
+        $query->bindValue(':post_id', $post_id);
+        $query->execute();
     }
 
     private function map_row_to_posts($row): Post
@@ -48,8 +71,8 @@ class PostRepository extends BaseRepository
         return new Post(
             $row->post_id,
             $row->post_user_id,
-            $row->post_token,
-            $created_date
+            $created_date,
+            $row->post_content
         );
     }
 }

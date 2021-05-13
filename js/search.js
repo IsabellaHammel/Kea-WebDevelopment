@@ -25,10 +25,10 @@ function search() {
 }
 
 async function search_users() { // async denotes function is run in background process/thread
-    const url = '/search'
+    const search_value = document.getElementById("search_input").value
+    const url = `/api/users?name=${search_value}`
     const request = {
-        method: "POST",
-        body: new FormData(document.querySelector("form"))
+        method: "GET"
     }
 
     let response = await fetch(url, request) // await fetch to finish

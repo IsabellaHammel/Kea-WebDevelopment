@@ -21,10 +21,18 @@ if($user == null)
   exit();
 }
 ?>
- <div class="user">
-    <div><b>Firstname:</b> <?= $user->get_firstname() ?></div>
-    <div><b>Lastname:</b> <?= $user->get_lastname() ?></div>
-    <div><b>Age:</b> <?= $user->get_age() ?></div>
+<p id="user_id" style="display: none;" value="<?= $user->get_id()?>"></p>
+  <h1><?=$user->get_fullname()?></h1>
+  <div class="user">
+    <div><b>Age:</b> <?= $user->get_age_str() ?></div>
     <div><b>Phone:</b> <?= $user->get_phone() ?></div>
     <div><b>Email:</b> <?= $user->get_email() ?></div>
- </div>
+  </div>
+
+ <div class="container" id="user_posts_section">
+    <h2>Posts</h2>
+    <div class="container" id="posts">
+      <!--Javascript populates this section-->
+    </div>    
+  </div>
+ <script src="../../js/user.js"></script>

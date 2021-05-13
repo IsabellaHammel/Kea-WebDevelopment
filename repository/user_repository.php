@@ -114,7 +114,7 @@ class UserRepository extends BaseRepository
     public function create_user(User $user): int // returns user 
     {
         $sql = "INSERT INTO users (user_firstname, user_lastname, user_age, user_phone, user_email, user_password, user_is_active, user_is_verified, user_verify_token, user_is_admin)
-        VALUES ('{$user->get_firstname()}', '{$user->get_lastname()}', '{$user->get_age()}', '{$user->get_phone()}', '{$user->get_email()}', '{$user->get_password()}', true, '{$user->get_is_verified()}', '{$user->get_verify_token()}', '{$user->get_is_admin()}')";
+        VALUES ('{$user->get_firstname()}', '{$user->get_lastname()}', '{$user->get_age_str()}', '{$user->get_phone()}', '{$user->get_email()}', '{$user->get_password()}', true, '{$user->get_is_verified()}', '{$user->get_verify_token()}', '{$user->get_is_admin()}')";
 
         $db_response = $this->query($sql);
         $is_created = $db_response  == TRUE; // try creates a user in DB and returns if created
@@ -145,11 +145,12 @@ class UserRepository extends BaseRepository
 
     private function map_row_to_user($row): User
     {
+        $age = date_create_from_format('Y-m-d', $row->user_age);
         return new User(
             $row->user_id,
             $row->user_firstname,
             $row->user_lastname,
-            $row->user_age,
+            $age,
             $row->user_phone,
             $row->user_email,
             $row->user_password,

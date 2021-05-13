@@ -1,7 +1,7 @@
 async function deactivate_user(id) {
 
     // post to api to update user
-    const url = `/users/${id}/deactivate`
+    const url = `/api/users/${id}/deactivate`
     const request = {
         method: "POST"
     }
@@ -18,7 +18,7 @@ async function deactivate_user(id) {
 async function activate_user(id) {
 
     // post to api to update user
-    const url = `/users/${id}/activate`
+    const url = `/api/users/${id}/activate`
     const request = {
         method: "POST"
     }

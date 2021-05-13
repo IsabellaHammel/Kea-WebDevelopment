@@ -47,6 +47,11 @@
     }
     ?>
         <li class="nav-item">
+          <a href="/myprofile" class="nav-item nav-link">  
+            <?= $logged_in_user->get_firstname() ?>
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="/search" class="nav-item nav-link">  
             Search
           </a>
