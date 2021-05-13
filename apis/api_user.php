@@ -30,7 +30,11 @@ function search_users()
     
     $users_to_return = array();
     foreach($users as $user)
-    {
+    {   
+        if(!$user->get_is_active())
+        {
+            continue;
+        }
         $user_to_return = array(
             "user_id" => $user->get_id(), 
             "user_fullname" => $user->get_fullname()

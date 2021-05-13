@@ -47,7 +47,7 @@ function get_all_users(): array
 {
     global $user_repository;
     $users = $user_repository->get_users();
-    usort($users, function($user1, $user2){
+    usort($users, function($user1, $user2){ // sort by age
         return $user1->get_age() > $user2->get_age();
     });
     return $users;

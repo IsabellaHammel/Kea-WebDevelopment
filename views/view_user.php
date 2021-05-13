@@ -4,20 +4,20 @@ try_start_session();
 
 // validate everything you can come up with
 if(!isset($user_id)){
-    header('Location: /search');
+    header('Location: /');
     exit();
 }
 if(!ctype_alnum($user_id)) // check contains only letter or digits
 {
-  header('Location: /search');
+  header('Location: /');
   exit();
 }
 
 $user = get_user($user_id);
 
-if($user == null)
+if($user == null || !$user->get_is_active())
 {
-  header('Location: /search');
+  header('Location: /');
   exit();
 }
 ?>
