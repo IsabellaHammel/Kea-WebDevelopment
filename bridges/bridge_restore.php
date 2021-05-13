@@ -6,19 +6,6 @@ require_once(__DIR__.'/../repository/forgot_password.php');
 require_once(__DIR__.'/../services/MailService.php');
 require_once(__DIR__.'/../utilities/utilities.php');
 
-
-/*
-TODO
-- New function called RestorePassword()
- - get ForgotPassword by token from json post call or form
- - get user from userID stored in ForgotPassword
- - take posted password and hash password
- - update user with new password "->set_password($hashed_password)"
- - update ForgotPassword is_active = 0
-
-When restored password redirect to login
-*/
-
 function check_restore_link_active($token) 
 {
   $forgot_password_repository = new ForgotPasswordRepository();
