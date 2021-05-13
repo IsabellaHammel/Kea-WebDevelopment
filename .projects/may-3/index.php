@@ -7,7 +7,6 @@
   <title>Document</title>
 </head>
 <body>
-  
   <form action="upload.php" method="POST" enctype="multipart/form-data">
     <input name="my_picture" type="file">
     <input type="submit" value="Upload image">

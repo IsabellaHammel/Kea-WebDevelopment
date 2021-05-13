@@ -24,9 +24,11 @@ if($user == null)
 <p id="user_id" style="display: none;" value="<?= $user->get_id()?>"></p>
   <h1><?=$user->get_fullname()?></h1>
   <div class="user">
+    <div><img class="profile-image" src="../<?= $user->get_profile_image()?>" alt="profile image"></div>
     <div><b>Age:</b> <?= $user->get_age_str() ?></div>
     <div><b>Phone:</b> <?= $user->get_phone() ?></div>
     <div><b>Email:</b> <?= $user->get_email() ?></div>
+
   </div>
 
  <div class="container" id="user_posts_section">

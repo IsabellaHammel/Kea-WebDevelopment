@@ -39,3 +39,9 @@
 .show {
     display: grid;
 }
+
+.profile-image {
+    margin-top: 1vh;
+    max-width: 33vh;
+    height: auto;
+}

@@ -4,17 +4,18 @@ $('#update-user-form').submit(function(e) {
 
 async function update_user() {
     // Verify confirm password are same
-    const formElement = document.querySelector("#update-user-form")
-
     if (!isValidPassword()) {
         return false
     }
+
+    const formElement = document.querySelector("#update-user-form")
+    const formData = new FormData(formElement)
 
     // post to api to update user
     const url = "/users/update"
     const request = {
         method: "POST",
-        body: new FormData(formElement)
+        body: formData
     }
 
     const response = await fetch(url, request) // await fetch to finish
@@ -42,6 +43,10 @@ function toggle_update() {
 function isValidPassword() {
     let password = document.getElementById("floatingPassword").value
     let confirm_password = document.getElementById("floatingConfirmPassword").value
+
+    if (password.length == 0) {
+        return true
+    }
 
     if (password.length < 8 || password.length > 50) {
         alert("Password is invalid")
@@ -89,7 +94,6 @@ async function get_my_posts() {
     const postsData = await response.json()
 
     if (!postsData || postsData.posts.length == 0) {
-        console.log("No posts found")
         return false
     }
 

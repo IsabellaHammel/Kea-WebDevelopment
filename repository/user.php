@@ -14,6 +14,7 @@ class User
     private bool $_is_verified;
     private string $_verify_token;
     private bool $_is_admin;
+    private string $_profile_image;
 
     public function __construct(
         $id = null, 
@@ -26,7 +27,8 @@ class User
         $is_active = null,
         $is_verified = false,
         $verify_token,
-        $is_admin = false
+        $is_admin = false,
+        $profile_image
     )
     {
         $this->_id = $id;
@@ -40,7 +42,7 @@ class User
         $this->_is_verified = $is_verified;
         $this->_verify_token = $verify_token;
         $this->_is_admin = $is_admin;
-
+        $this->_profile_image = $profile_image;
     }
 
     public function get_firstname(): string
@@ -157,6 +159,16 @@ class User
     public function set_is_admin(bool $is_admin)
     {
         $this->_is_admin = $is_admin;
+    }
+
+    public function get_profile_image(): string
+    {
+        return $this->_profile_image;
+    }
+
+    public function set_profile_image(string $profile_image)
+    {
+        $this->_profile_image = $profile_image;
     }
 
 

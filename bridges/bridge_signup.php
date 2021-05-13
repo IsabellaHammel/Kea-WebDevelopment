@@ -2,6 +2,7 @@
 require_once(__DIR__.'/../repository/user_repository.php');
 require_once(__DIR__.'/../repository/user.php');
 require_once(__DIR__.'/../services/MailService.php');
+require_once(__DIR__.'/../services/ImageService.php');
 require_once(__DIR__.'/../utilities/utilities.php');
 
 
@@ -90,11 +91,25 @@ function validatePassword(){
     }
 }
 
+function validateImage(){
+    $image_service = new ImageService();
+    
+    $image_file = $_FILES['user_profile_image']['tmp_name']; // tmp_name - temporary name in server on upload 
+    $file_extension = $image_service->get_file_extension($image_file);
+
+    if(!$image_service->is_valid_extension($file_extension))
+    {
+        appendError("File not valid");
+    }
+}
+
+
 function isLengthValid($input, $min, $max){
     $inputLength = strlen($input);
     $isLengthWithinRange = $inputLength >= $min && $inputLength <= $max; 
     return $isLengthWithinRange;
 }
+
 
 function showErrorMessage($error_message){
     redirect("/signup/error/$error_message");
@@ -102,10 +117,12 @@ function showErrorMessage($error_message){
 
 function createUser(){
     $user_repository = new UserRepository();
+    $imageService = new ImageService();
 
     $hash_password = password_hash($_POST['user_password'], PASSWORD_DEFAULT);
     $verify_token = uniqid();
-    $age_date = new DateTime($_POST['user_age']);
+
+    $imagePath = $imageService->save_image($_FILES['user_profile_image']['tmp_name']);
 
     $user = new User(
         firstname: $_POST['user_first_name'],
@@ -114,7 +131,8 @@ function createUser(){
         phone: $_POST['user_phone'],
         email: $_POST['user_email'],
         password: $hash_password,
-        verify_token: $verify_token
+        verify_token: $verify_token,
+        profile_image: $imagePath
     );
     $user_repository->create_user($user);
     send_verification_mail($user);
@@ -145,6 +163,8 @@ validateEmail();
 validateUserNotExist();
 
 validatePassword();
+
+validateImage();
 
 if($error != null)
 {

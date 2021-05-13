@@ -8,7 +8,7 @@
     <?php
     }
     ?>
-    <form action='/signup' method="POST">
+    <form action='/signup' method="POST" enctype="multipart/form-data">
             <input name="user_first_name" type="text" placeholder="name" >
             <br><br>
             <input name="user_last_name" type="text" placeholder="last name">
@@ -23,10 +23,7 @@
             <br><br>
             <input name="user_confirm_password" type="password" placeholder="confirm password">
             <br><br>
+            <input name="user_profile_image" type="file">
+            <br><br>
         <button>signup</button>
     </form>
-
-    <!-- <form action="upload.php" method="POST" enctype="multipart/form-data">
-        <input name="my_picture" type="file">
-        <input type="submit" value="Upload image">
-    </form> -->

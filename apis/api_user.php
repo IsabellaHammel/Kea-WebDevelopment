@@ -2,6 +2,8 @@
 require_once(__DIR__.'/../repository/user_repository.php');
 require_once(__DIR__.'/../bridges/bridge_user.php');
 require_once(__DIR__.'/../services/MailService.php');
+require_once(__DIR__.'/../services/ImageService.php');
+
 
 
 function search_users()
@@ -121,7 +123,8 @@ function update_user()
         }
 
         if($_POST['user_age']){
-            $user->set_age($_POST['user_age']);
+            $newAge = date_create_from_format("Y-m-d",$_POST['user_age']);
+            $user->set_age($newAge);
         }
 
         if($_POST['user_phone']){
@@ -132,11 +135,18 @@ function update_user()
             $user->set_email($_POST['user_email']);
         }
 
-        /* if($_POST['user_picture']){ // add profile picture
-            $user->set_firstname($_POST['user_picture']);
-        } */
-        
-        
+        if($_FILES['user_profile_image']['tmp_name']){
+            $imageService = new ImageService();
+            $image = $_FILES['user_profile_image']['tmp_name'];
+
+            $isValidImage = $imageService->is_valid_extension($imageService->get_file_extension($image));
+            if($isValidImage)
+            {
+                $imagePath = $imageService->save_image($image);
+                $user->set_profile_image($imagePath);
+            }
+        }
+
         $user_repository = new UserRepository();
         $user_repository->update_user($user);    
 
