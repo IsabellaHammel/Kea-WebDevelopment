@@ -13,6 +13,9 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
   <link rel="stylesheet" href="../css/style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="../js/search.js"></script>
+
+
 </head>
 <body class="container">
   <nav class="navbar bg-dark navbar-dark navbar-expand-sm text-center px-3">
@@ -52,14 +55,17 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="/search" class="nav-item nav-link">  
-            Search
-          </a>
-        </li> 
-        <li class="nav-item">
           <a href="/logout" class="nav-item nav-link"> 
             Logout
           </a>
+        </li>
+        <li class="nav-item">
+          <div id="search">
+            <form onsubmit="return false">
+                <input id="search_input" name="search_user_name" type="text" placeholder="User's name" oninput="search()" onfocus="show_results()" >
+                <div id="search_results"></div>
+            </form>
+          </div>    
         </li>
     <?php
     }

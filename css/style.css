@@ -45,3 +45,11 @@
     max-width: 33vh;
     height: auto;
 }
+
+#search {
+    width: 100vh;
+}
+
+#search_results {
+    background-color: white;
+}

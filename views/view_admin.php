@@ -12,7 +12,7 @@ if($user != null){
     <div class="container user-details">
       <div><b>Firstname:</b> <?= $user->get_firstname() ?></div>
       <div><b>Lastname:</b> <?= $user->get_lastname() ?></div>
-      <div><b>Age:</b> <?= $user->get_age() ?></div>
+      <div><b>Age:</b> <?= $user->get_age_str() ?></div>
       <div><b>Phone:</b> <?= $user->get_phone() ?></div>
       <div><b>Email:</b> <?= $user->get_email() ?></div>
     </div>
