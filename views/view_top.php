@@ -1,5 +1,6 @@
 <?php
   require_once(__DIR__.'/../bridges/bridge_user.php'); // Requires user bridge to allow us to call functions from that php file
+  
   try_start_session();
 ?>
 
@@ -38,34 +39,15 @@
     else { 
       $logged_in_user = get_logged_in_user();
     ?> <!-- Only shown when session -->
-    <?php
-    if($logged_in_user->get_is_admin()){
-    ?>
-        <li class="nav-item">
-          <a href="/admin" class="nav-item nav-link">  
-            Admin
-          </a>
-        </li>
-    <?php
-    }
-    ?>
         <li class="nav-item">
           <a href="/myprofile" class="nav-item nav-link">  
-            <?= $logged_in_user->get_firstname() ?>
+            <?= $logged_in_user->get_name() ?>
           </a>
         </li>
         <li class="nav-item">
           <a href="/logout" class="nav-item nav-link"> 
             Logout
           </a>
-        </li>
-        <li class="nav-item">
-          <div id="search">
-            <form onsubmit="return false">
-                <input id="search_input" name="search_user_name" type="text" placeholder="User's name" oninput="search()" onfocus="show_results()" >
-                <div id="search_results"></div>
-            </form>
-          </div>    
         </li>
     <?php
     }
