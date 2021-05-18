@@ -37,25 +37,6 @@ function validateName(){
     }
 }
 
-function validatePhone(){
-    $phone = trim($_POST['user_phone']);
-    
-    $requiredLength = 8;
-    if(strlen($phone) != $requiredLength){
-        appendError("Phone must contain $requiredLength digits");
-    }
-    
-    if(strlen($phone) > 0)
-    {
-        $pattern = '/\D+/i'; // \D is non digit - "+" is one or more - i is non case sensitive search
-        $nonDigitMatch = preg_match($pattern, $phone); // regex matches all non digits
-        
-        if($nonDigitMatch > 0 || $phone[0] == '0'){
-            appendError('Phone is invalid');
-        }
-    }
-}
-
 function validateEmail(){
     $email = $_POST['user_email'];
     if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
@@ -91,19 +72,6 @@ function validatePassword(){
     }
 }
 
-function validateImage(){
-    $image_service = new ImageService();
-    
-    $image_file = $_FILES['user_profile_image']['tmp_name']; // tmp_name - temporary name in server on upload 
-    $file_extension = $image_service->get_file_extension($image_file);
-
-    if(!$image_service->is_valid_extension($file_extension))
-    {
-        appendError("File not valid");
-    }
-}
-
-
 function isLengthValid($input, $min, $max){
     $inputLength = strlen($input);
     $isLengthWithinRange = $inputLength >= $min && $inputLength <= $max; 
@@ -138,25 +106,9 @@ function createUser(){
     send_verification_mail($user);
 }
 
-function send_verification_mail(User $user){
-    $mail_service = new MailService();
-    $user_email = $user->get_email();
-    $verify_link = 'http://' . $_SERVER['SERVER_NAME'] . '/verify/' . $user->get_verify_token();
-    
-    $subject = "KEA test - Please verify your account";
-    $message = " <div> <b>Hello {$user->get_fullname()}</b> </div> 
-    <div> Please verify your account by pressing this <a href='$verify_link'>link</a> </div>
-    <div> Kind Regards </div>
-    <div> - Kea Test </div>";
-
-    $mail_service->sendMail($message, $subject, $user_email);
-}
-
 // ---------------- VALIDATE FORM INPUT AND USER
 
 validateName();
-
-validatePhone();
 
 validateEmail();
 
@@ -164,7 +116,6 @@ validateUserNotExist();
 
 validatePassword();
 
-validateImage();
 
 if($error != null)
 {

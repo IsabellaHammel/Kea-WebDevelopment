@@ -60,17 +60,6 @@ function get_user(string $user_id): ?User
     return $user;
 }
 
-function deactivate_user()
-{
-    global $user_repository;
-
-    $user = get_logged_in_user();
-    $user->set_is_active(false);
-    $user_repository->update_user($user);
-    
-    logout();
-}
-
 function logout()
 {
     session_start();

@@ -21,16 +21,6 @@ function try_login(): string
   {
       return "Password or email was invalid"; // Return error message
   }
-  
-  if(!$user->get_is_active()) // Check if user is active 
-  {
-    return "User is no longer active";
-  }
-
-  if(!$user->get_is_verified())
-  {
-    return "User is not verified";
-  }
 
   session_start();
   $_SESSION['user_id'] = $user->get_id(); 

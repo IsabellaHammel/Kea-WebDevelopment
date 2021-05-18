@@ -15,4 +15,3 @@
         <br><br>
         <button>login</button>
     </form>
-    <a href="/forgotpassword">Forgot password</a>

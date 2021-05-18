@@ -66,29 +66,6 @@ get('/logout', function(){
   exit();
 });
 
-//---------- ADMIN DASHBOARD ---------------
-
-get('/admin', function (){
-  authorize(is_require_admin:true);
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php");
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_admin.php");
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php");
-  exit();
-});
-
-post('/api/users/:id/deactivate', function ($id){
-  authorize(is_require_admin:true);
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/apis/api_user.php");
-  deactivate_user_by_admin($id);
-  exit();
-});
-
-post('/api/users/:id/activate', function ($id){
-  authorize(is_require_admin:true);
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/apis/api_user.php");
-  activate_user_by_admin($id);
-  exit();
-});
 
 //---------- USER DASHBOARD ---------------
 
@@ -109,13 +86,6 @@ get('/users/:id', function($id){
   exit();
 });
 
-post('/deactivate', function(){
-  authorize();
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/bridges/bridge_user.php");
-  deactivate_user();
-  exit();
-});
-
 post('/users/update', function(){
   authorize();
   require_once("{$_SERVER['DOCUMENT_ROOT']}/apis/api_user.php");
@@ -123,28 +93,6 @@ post('/users/update', function(){
   exit();
 });
 
-//---------- POSTS ---------------
-
-get('/api/posts', function (){
-  authorize_api();
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/apis/api_post.php");
-  get_posts();
-  exit();
-});
-
-post('/api/posts/:post_id/delete', function (string $post_id){ 
-  authorize_api();
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/apis/api_post.php");
-  delete_post($post_id);
-  exit();
-});
-
-post('/api/posts', function (){ 
-  authorize_api();
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/apis/api_post.php");
-  create_post();
-  exit();
-});
 
 //---------- DEFAULT---------------
 any('/404', 'error404');
