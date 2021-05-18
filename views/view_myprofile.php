@@ -1,4 +1,9 @@
 <?php
+
+// include readonly text fields of school and role - line 17
+
+
+
 require_once(__DIR__.'/../bridges/bridge_user.php'); // Requires user bridge to allow us to call functions from that php file
 $user = get_logged_in_user(); // call function from bridge_user.php exposed by require_once
 ?>
@@ -19,8 +24,8 @@ if($user != null){
   <div class="container user-update hide">
     <form id="update-user-form" class="row form-floating" enctype="multipart/form-data" onsubmit="return update_user();  return false;" >
       <div class="mb-2">
-        <label for="floatingFirstname">Name</label>
-        <input required type="text" name="user_first_name" id="floatingFirstname" class="form-control" value= "<?= $user->get_firstname() ?>">
+        <label for="floatingName">Name</label>
+        <input required type="text" name="user_name" id="floatingName" class="form-control" value= "<?= $user->get_firstname() ?>">
       </div>
       <div class="mb-2">
         <label for="floatingEmail">Email</label>

@@ -31,7 +31,6 @@ post('/signup', function(){
 
 //---------- LOGIN ---------------
 get('/', function (){
-  authorize(is_home: true);
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php");
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_login.php");
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php");
@@ -39,7 +38,6 @@ get('/', function (){
 });
 
 get('/login', function (){
-  authorize(is_home: true);
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php");
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_login.php");
   require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php");
@@ -77,14 +75,6 @@ get('/myprofile', function (){
   exit();
 });
 
-get('/users/:id', function($id){
-  authorize();
-  $user_id = $id;
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php");
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_user.php"); 
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php");
-  exit();
-});
 
 post('/users/update', function(){
   authorize();
@@ -103,23 +93,18 @@ function error404(){
   exit();
 }
 
-function authorize(bool $is_home = false, bool $is_require_admin = false){
+function authorize(bool $is_home = false){
   require_once("{$_SERVER['DOCUMENT_ROOT']}/bridges/bridge_user.php");
   
-  if(is_user_logged_in($is_require_admin) && $is_home){
-    header("Location: /myprofile"); // user already logged in
-    exit();
-  }
-
-  if(!is_user_logged_in($is_require_admin) && !$is_home){
+  if(!is_user_logged_in() && !$is_home){
     header("Location: /"); // avoid infinite redirect if home
   }
 }
 
-function authorize_api(bool $is_require_admin = false){
+function authorize_api(){
   require_once("{$_SERVER['DOCUMENT_ROOT']}/bridges/bridge_user.php");
   
-  if(!is_user_logged_in($is_require_admin)){
+  if(!is_user_logged_in()){
     http_response_code(401); // unauthorized
     exit();
   }

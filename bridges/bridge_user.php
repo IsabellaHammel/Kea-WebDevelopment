@@ -1,6 +1,6 @@
 <?php
 require_once(__DIR__.'/../repository/user_repository.php');
-require_once(__DIR__.'/../repository/user.php');
+require_once(__DIR__.'/../repository/entities/user.php');
 require_once(__DIR__.'/../utilities/utilities.php');
 
 
@@ -29,17 +29,11 @@ function get_logged_in_user(): ?User
     return $user;
 }
 
-function is_user_logged_in(bool $is_require_admin): bool
+function is_user_logged_in(): bool
 {
     $logged_in_user = get_logged_in_user();
     $is_user_logged_in = $logged_in_user != null;
 
-    if($is_user_logged_in && 
-       $is_require_admin && 
-       !$logged_in_user->get_is_admin())
-    {
-        return false;
-    }
     return $is_user_logged_in;
 }
 

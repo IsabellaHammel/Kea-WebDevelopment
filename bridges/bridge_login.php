@@ -1,6 +1,6 @@
 <?php
 require_once(__DIR__.'/../repository/user_repository.php');
-require_once(__DIR__.'/../repository/user.php');
+require_once(__DIR__.'/../repository/entities/user.php');
 require_once(__DIR__.'/../utilities/utilities.php');
 
 
