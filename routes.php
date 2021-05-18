@@ -123,55 +123,6 @@ post('/users/update', function(){
   exit();
 });
 
-//--------- FORGOT / RESTORE PASSWORD ----------
-post('/forgotpassword', function(){
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/bridges/bridge_forgot_password.php");
-  create_forgot_password();
-  exit();
-});
-
-get('/forgotpassword', function(){
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php"); 
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_forgot_password.php"); 
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php"); 
-  exit();
-});
-
-get('/forgotpassword/message/:message', function ($message){
-  $display_message = $message;
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php");
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_forgot_password.php"); 
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php");
-  exit();
-});
-
-get('/restore/:token', function ($token){
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/bridges/bridge_restore.php"); 
-  
-  $restore_token = $token;
-  check_restore_link_active($restore_token);
-
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php");
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_restore_password.php"); 
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php");
-  exit();
-});
-
-get('/restore/error/:message', function ($message){
-  $display_message = $message;
-  
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php");
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_restore_password_error.php"); 
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php");
-  exit();
-});
-
-post('/api/restore', function (){  
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/apis/api_restore.php");
-  restore_password();
-  exit();
-});
-
 //---------- POSTS ---------------
 
 get('/api/posts', function (){
@@ -194,32 +145,6 @@ post('/api/posts', function (){
   create_post();
   exit();
 });
-
-
-//---------- SEARCH ---------------
-
-get('/search', function(){
-  authorize();
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_top.php"); 
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_search.php"); 
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/views/view_bottom.php"); 
-  exit();
-});
-
-get('/api/users', function(){
-  authorize_api();
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/apis/api_user.php");
-  search_users();
-  exit();
-});
-
-//---------- VERIFICATION ------------
-get('/verify/:token', function($token){
-  require_once("{$_SERVER['DOCUMENT_ROOT']}/bridges/bridge_verify.php");
-  verify_user($token);
-  exit();
-});
-
 
 //---------- DEFAULT---------------
 any('/404', 'error404');
