@@ -1,6 +1,8 @@
 <?php
 require_once(__DIR__.'/repository/base_repository.php');
 require_once(__DIR__.'/repository/school_repository.php');
+require_once(__DIR__.'/repository/role_repository.php');
+
 
 
 class TestRepository extends BaseRepository
@@ -79,7 +81,6 @@ class TestRepository extends BaseRepository
 
 
 
-$repo = new SchoolRepository();
-$entity = $repo->get_schools();
-echo $entity;
-
+/* $repo = new RoleRepository();
+$entity = $repo->get_roles();
+echo $entity; */

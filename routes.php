@@ -83,6 +83,22 @@ post('/users/update', function(){
   exit();
 });
 
+// ------------- SCHOOLS  ---------------------
+
+get('/api/schools', function(){
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/apis/api_schools.php");
+  get_all_schools();
+  exit();
+});
+
+
+// ------------- ROLES  ---------------------
+
+get('/api/roles', function(){
+  require_once("{$_SERVER['DOCUMENT_ROOT']}/apis/api_roles.php");
+  get_all_roles();
+  exit();
+});
 
 //---------- DEFAULT---------------
 any('/404', 'error404');

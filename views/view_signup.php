@@ -1,9 +1,4 @@
-
 <?php
-
-// Include dropdown with schools
-// include dropdown with roles - student/teacher
-
 
 if(isset($display_error)){
 ?>
@@ -18,6 +13,23 @@ if(isset($display_error)){
         <br><br>
         <input name="user_email" type="text"  placeholder="email">
         <br><br>
+
+        <label for="roles">Choose a role:</label>
+        <select name="roles" id="roles">
+            <option value="student">Student</option>
+            <option value="teacher">Teacher</option>
+        </select>
+        <br><br>
+
+        <label for="schools">Choose a school:</label>
+        <select name="schools" id="schools">
+            <option value="kea">KEA</option>
+            <option value="itu">ITU</option>
+            <option value="ku">KU</option>
+            <option value="diku">DIKU</option>
+        </select>
+        <br><br>
+
         <input name="user_password" type="password"  placeholder="password">
         <br><br>
         <input name="user_confirm_password" type="password" placeholder="confirm password">

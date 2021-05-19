@@ -73,20 +73,35 @@ class UserRepository extends BaseRepository
 
     public function create_user(User $user): int // returns user 
     {
-        return 0;
-        // $sql = "INSERT INTO users (user_email, user_password)
-        // VALUES ('{$user->get_email()}', '{$user->get_password()}')";
+        try {
+            $this->beginTransaction();
+            // Create user and retrieve id from DB
+                // lastInsertId ##########################
+            $sql = "INSERT INTO users (user_name, user_email, user_password)
+                    VALUES ('{$user->get_name()}', '{$user->get_email()}', '{$user->get_password()}')";
 
-        // $db_response = $this->query($sql);
-        // $is_created = $db_response  == TRUE; // try creates a user in DB and returns if created
-        
-        // if($is_created)
-        // {
-        //     $created_user = $this->get_user_by_email($user->get_email());
-        //     return $created_user->get_id();
-        // }
+            $db_response = $this->query($sql);
+            $is_created = $db_response  == TRUE; // try creates a user in DB and returns if created
+            
+            if($is_created)
+            {
+                $created_user = $this->get_user_by_email($user->get_email());
+                return $created_user->get_id();
+            }
 
-        // throw new Exception('Unable to create user');
+            throw new Exception('Unable to create user');
+            
+
+            // Create user_relation(user_id, school_id, role_id)
+            $query = $this->prepare('INSERT INTO user_relation WHERE user_id = :id AND school_id = :school_id AND role_id = :role_id');
+            $query->bindValue(':id', $user);
+            $query->execute();
+            $user_rows = $query->fetchAll();
+
+            $this->commit();
+        } catch (Exception $e) {
+            $this->rollBack();
+        }
     }
 
     private function add_query_set(string $set_query, string $column, $value, bool $is_last = false): string
@@ -110,7 +125,9 @@ class UserRepository extends BaseRepository
             $row->user_id,
             $row->user_name,
             $row->user_email,
-            $row->user_password
+            $row->user_password,
+            $row->role_id,
+            $row->school_id
         );
     }
     

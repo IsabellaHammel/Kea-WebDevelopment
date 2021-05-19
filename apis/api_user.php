@@ -1,8 +1,6 @@
 <?php
 require_once(__DIR__.'/../repository/user_repository.php');
 require_once(__DIR__.'/../bridges/bridge_user.php');
-require_once(__DIR__.'/../services/MailService.php');
-require_once(__DIR__.'/../services/ImageService.php');
 
 function update_user()
 {

@@ -7,18 +7,31 @@ class User
     private string $_name;
     private string $_email;
     private string $_password;
+    private ?int $_role_id; // foreign key
+    private ?int $_school_id; // foreign key
+
 
     public function __construct(
         $id = null, 
         $name, 
         $email, 
-        $password
+        $password,
+        $role_id,
+        $school_id
     )
     {
         $this->_id = $id;
         $this->_name = $name;
         $this->_email = $email;
         $this->_password = $password;
+        $this->_role_id = $role_id;
+        $this->_school_id = $school_id;
+    }
+
+
+    public function get_id(): ?int // No setter because we do not modify the id of a user, only read if from existing user
+    {
+        return $this->_id;
     }
 
     public function get_name(): string
@@ -51,8 +64,13 @@ class User
         $this->_password = $password;
     }
 
-    public function get_id(): int // No setter because we do not modify the id of a user, only read if from existing user
+    public function get_role_id(): int
     {
-        return $this->_id;
+        return $this->_role_id;
     }
+
+    public function get_school_id(): int
+    {
+        return $this->_school_id;
+    }    
 }
